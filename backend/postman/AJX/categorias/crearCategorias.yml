@@ -1,0 +1,23 @@
+info:
+  name: crearCategorias
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/categorias
+  body:
+    type: json
+    data: |-
+      {
+          "nombre": "Sub-11",
+          "ano": 2024,
+          "idEntrenador": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

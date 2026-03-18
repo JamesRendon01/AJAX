@@ -1,0 +1,25 @@
+info:
+  name: crearPlaneaciones
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/planeaciones
+  body:
+    type: json
+    data: |-
+      {
+          "nombre": "Planeacion febrero",
+          "fechaInicio": "2024-01-15",
+          "fechaFin": "2024-01-31",
+          "fechaCarga": "2024-01-15",
+          "idCategoria": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

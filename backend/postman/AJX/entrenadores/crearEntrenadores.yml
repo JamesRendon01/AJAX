@@ -1,0 +1,29 @@
+info:
+  name: crearEntrenadores
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/entrenadores
+  body:
+    type: json
+    data: |-
+      {
+          "nombre": "Admin",
+          "tipoDocumento": "CC",
+          "documento": "123456780",
+          "certificado": "cert.pdf",
+          "delitosSexuales": "NO",
+          "tarjetaProfesional": "TP-001",
+          "certificadoPrimerCorrespondiente": "primeros_auxilios.pdf",
+          "celular": "3001234560",
+          "cargo": "administrador"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

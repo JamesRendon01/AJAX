@@ -41,4 +41,4 @@ def eliminar(id: int, db: Session = Depends(get_db)):
     if not obj:
         raise HTTPException(status_code=404, detail="No encontrado")
     db.delete(obj)
-    db.commit()
+    db.commit() 

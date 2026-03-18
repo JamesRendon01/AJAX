@@ -1,0 +1,36 @@
+info:
+  name: crearJugadores
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://127.0.0.1:8000/jugadores
+  body:
+    type: json
+    data: |-
+      {
+          "nombre": "Cristiano Ronaldo",
+          "nacionalidad": "Portugues",
+          "tipoDocumento": "TI",
+          "documento": "987654320",
+          "fechaNacimiento": "2014-05-15",
+          "edad": 10,
+          "dorsal": 10,
+          "contactoEmergencia": "3009876549",
+          "estado": "activo",
+          "fechaIngreso": "2024-01-16",
+          "fechaSalida": null,
+          "devolucion1": null,
+          "devolucion2": null,
+          "devolucion3": null,
+          "torneo": "Liga Local",
+          "idCategoria": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

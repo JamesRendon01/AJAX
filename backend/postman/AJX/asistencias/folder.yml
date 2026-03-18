@@ -1,0 +1,7 @@
+info:
+  name: asistencias
+  type: folder
+  seq: 4
+
+request:
+  auth: inherit
