@@ -7,19 +7,48 @@ http:
   method: POST
   url: http://127.0.0.1:8000/entrenadores
   body:
-    type: json
-    data: |-
-      {
-          "nombre": "Admin",
-          "tipoDocumento": "CC",
-          "documento": "123456780",
-          "certificado": "cert.pdf",
-          "delitosSexuales": "NO",
-          "tarjetaProfesional": "TP-001",
-          "certificadoPrimerCorrespondiente": "primeros_auxilios.pdf",
-          "celular": "3001234560",
-          "cargo": "administrador"
-      }
+    type: multipart-form
+    data:
+      - name: nombre
+        type: text
+        value: Admin Storage
+        contentType: Auto
+      - name: "tipoDocumento "
+        type: text
+        value: CC
+        contentType: Auto
+      - name: documento
+        type: text
+        value: "111222333"
+        contentType: Auto
+      - name: celular
+        type: text
+        value: "3001234567"
+        contentType: Auto
+      - name: cargo
+        type: text
+        value: administrador
+        contentType: Auto
+      - name: certificado
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
+      - name: delitosSexuales
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
+      - name: tarjetaProfesional
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
+      - name: certificadoPrimerCorrespondiete
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
   auth: inherit
 
 settings:
