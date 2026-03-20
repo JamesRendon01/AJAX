@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.planeacion import Planeacion
-from app.services.storage import subir_archivo
+from app.services.storage import subir_archivo, limpiar
 from typing import Optional
 import uuid
 
@@ -31,15 +31,15 @@ async def crear(
 ):
     datos = {
         "nombre": nombre,
-        "fechaInicio": fechaInicio,
-        "fechaFin": fechaFin,
-        "fechaCarga": fechaCarga,
+        "fechaInicio": limpiar(fechaInicio),
+        "fechaFin": limpiar(fechaFin),
+        "fechaCarga": limpiar(fechaCarga),
         "idCategoria": idCategoria
     }
 
     if archivo:
         nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
-        datos["nombre"] = subir_archivo(
+        datos["archivo"] = subir_archivo(
             await archivo.read(), nombre_archivo, "planeaciones"
         )
 
@@ -65,14 +65,14 @@ async def actualizar(
         raise HTTPException(status_code=404, detail="No encontrado")
 
     if nombre: obj.nombre = nombre
-    if fechaInicio: obj.fechaInicio = fechaInicio
-    if fechaFin: obj.fechaFin = fechaFin
-    if fechaCarga: obj.fechaCarga = fechaCarga
+    if fechaInicio: obj.fechaInicio = limpiar(fechaInicio)
+    if fechaFin: obj.fechaFin = limpiar(fechaFin)
+    if fechaCarga: obj.fechaCarga = limpiar(fechaCarga)
     if idCategoria: obj.idCategoria = idCategoria
 
     if archivo:
         nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
-        obj.nombre = subir_archivo(
+        obj.archivo = subir_archivo(
             await archivo.read(), nombre_archivo, "planeaciones"
         )
 

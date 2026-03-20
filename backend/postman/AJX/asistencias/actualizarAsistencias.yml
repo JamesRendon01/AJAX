@@ -5,13 +5,15 @@ info:
 
 http:
   method: PUT
-  url: http://127.0.0.1:8000/asistencias/2
+  url: http://127.0.0.1:8000/asistencias/1
   body:
-    type: json
-    data: |-
-      {
-          "nombre": "Asistencia febrero"
-      }
+    type: multipart-form
+    data:
+      - name: archivo
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
   auth: inherit
 
 settings:

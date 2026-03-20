@@ -1,5 +1,5 @@
 info:
-  name: obtenerJugaores
+  name: obtenerJugadores
   type: http
   seq: 3
 

@@ -29,7 +29,7 @@ http:
         type: text
         value: "1"
         contentType: Auto
-      - name: Archivo
+      - name: archivo
         type: file
         value:
           - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf

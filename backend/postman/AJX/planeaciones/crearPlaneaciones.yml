@@ -7,15 +7,25 @@ http:
   method: POST
   url: http://127.0.0.1:8000/planeaciones
   body:
-    type: json
-    data: |-
-      {
-          "nombre": "Planeacion febrero",
-          "fechaInicio": "2024-01-15",
-          "fechaFin": "2024-01-31",
-          "fechaCarga": "2024-01-15",
-          "idCategoria": 1
-      }
+    type: multipart-form
+    data:
+      - name: nombre
+        type: text
+        value: planeacion enero
+      - name: archivo
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
+      - name: fechaInicio
+        type: text
+        value: 2024-01-15
+      - name: fechaFin
+        type: text
+        value: 2024-01-31
+      - name: fechaCarga
+        type: text
+        value: 2024-01-15
   auth: inherit
 
 settings:

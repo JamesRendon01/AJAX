@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.asistencia import Asistencia
-from app.services.storage import subir_archivo
+from app.services.storage import subir_archivo, limpiar
 from typing import Optional
 import uuid
 
@@ -31,15 +31,15 @@ async def crear(
 ):
     datos = {
         "nombre": nombre,
-        "fechaCreacion": fechaCreacion,
-        "fechaCargado": fechaCargado,
+        "fechaCreacion": limpiar(fechaCreacion),
+        "fechaCargado": limpiar(fechaCargado),
         "idEntrenador": idEntrenador,
         "idCategoria": idCategoria
     }
 
     if archivo:
         nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
-        datos["nombre"] = subir_archivo(
+        datos["archivo"] = subir_archivo(
             await archivo.read(), nombre_archivo, "asistencias"
         )
 
@@ -65,14 +65,14 @@ async def actualizar(
         raise HTTPException(status_code=404, detail="No encontrado")
 
     if nombre: obj.nombre = nombre
-    if fechaCreacion: obj.fechaCreacion = fechaCreacion
-    if fechaCargado: obj.fechaCargado = fechaCargado
+    if fechaCreacion: obj.fechaCreacion = limpiar(fechaCreacion)
+    if fechaCargado: obj.fechaCargado = limpiar(fechaCargado)
     if idEntrenador: obj.idEntrenador = idEntrenador
     if idCategoria: obj.idCategoria = idCategoria
 
     if archivo:
         nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
-        obj.nombre = subir_archivo(
+        obj.archivo = subir_archivo(
             await archivo.read(), nombre_archivo, "asistencias"
         )
 

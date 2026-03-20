@@ -8,6 +8,58 @@ http:
   url: http://127.0.0.1:8000/jugadores
   body:
     type: multipart-form
+    data:
+      - name: nombre
+        type: text
+        value: Ronaldo
+      - name: nacionalidad
+        type: text
+        value: Colombiano
+      - name: tipoDocumento
+        type: text
+        value: TI
+      - name: documento
+        type: text
+        value: "1234567890"
+      - name: fechaNacimiento
+        type: text
+        value: 2014-05-15
+      - name: edad
+        type: text
+        value: "16"
+      - name: dorsal
+        type: text
+        value: "1"
+      - name: contactoemergencia
+        type: text
+        value: "1234567890"
+      - name: estado
+        type: text
+        value: activo
+      - name: fechaIngreso
+        type: text
+        value: 2022-08-01
+      - name: fechaSalida
+        type: text
+        value: ""
+      - name: devolucion1
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/logo.jpg
+        contentType: File
+      - name: devolucion2
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/imagen_circular_recortada.png
+        contentType: File
+      - name: devolucion3
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
+      - name: torneo
+        type: text
+        value: Champions
   auth: inherit
 
 settings:

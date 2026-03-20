@@ -7,10 +7,10 @@ class Planeacion(Base):
 
     id          = Column(Integer, primary_key=True, autoincrement=True)
     nombre      = Column(String)
-    archivo     = Column(String)
     fechaInicio = Column(Date)
     fechaFin    = Column(Date)
     fechaCarga  = Column(Date)
+    archivo     = Column(String)
     idCategoria = Column(Integer, ForeignKey("categorias.id"))
 
     categoria = relationship("Categoria", back_populates="planeaciones")

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.jugador import Jugador
-from app.services.storage import subir_archivo
+from app.services.storage import subir_archivo, limpiar
 from typing import Optional
 import uuid
 
@@ -34,29 +34,41 @@ async def crear(
     fechaSalida: Optional[str] = Form(None),
     torneo: Optional[str] = Form(None),
     idCategoria: Optional[int] = Form(None),
-    archivo: Optional[UploadFile] = File(None),
+    devolucion1: Optional[UploadFile] = File(None),
+    devolucion2: Optional[UploadFile] = File(None),
+    devolucion3: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
     datos = {
         "nombre": nombre,
-        "nacionalidad": nacionalidad,
-        "tipoDocumento": tipoDocumento,
-        "documento": documento,
-        "fechaNacimiento": fechaNacimiento,
+        "nacionalidad": limpiar(nacionalidad),
+        "tipoDocumento": limpiar(tipoDocumento),
+        "documento": limpiar(documento),
+        "fechaNacimiento": limpiar(fechaNacimiento),
         "edad": edad,
         "dorsal": dorsal,
-        "contactoEmergencia": contactoEmergencia,
-        "estado": estado,
-        "fechaIngreso": fechaIngreso,
-        "fechaSalida": fechaSalida,
-        "torneo": torneo,
+        "contactoEmergencia": limpiar(contactoEmergencia),
+        "estado": limpiar(estado),
+        "fechaIngreso": limpiar(fechaIngreso),
+        "fechaSalida": limpiar(fechaSalida),
+        "torneo": limpiar(torneo),
         "idCategoria": idCategoria
     }
 
-    if archivo:
-        nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
+    if devolucion1:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion1.filename}"
         datos["devolucion1"] = subir_archivo(
-            await archivo.read(), nombre_archivo, "jugadores"
+            await devolucion1.read(), nombre_archivo, "jugadores"
+        )
+    if devolucion2:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion2.filename}"
+        datos["devolucion2"] = subir_archivo(
+            await devolucion2.read(), nombre_archivo, "jugadores"
+        )
+    if devolucion3:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion3.filename}"
+        datos["devolucion3"] = subir_archivo(
+            await devolucion3.read(), nombre_archivo, "jugadores"
         )
 
     obj = Jugador(**datos)
@@ -81,7 +93,9 @@ async def actualizar(
     fechaSalida: Optional[str] = Form(None),
     torneo: Optional[str] = Form(None),
     idCategoria: Optional[int] = Form(None),
-    archivo: Optional[UploadFile] = File(None),
+    devolucion1: Optional[UploadFile] = File(None),
+    devolucion2: Optional[UploadFile] = File(None),
+    devolucion3: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
     obj = db.query(Jugador).filter(Jugador.id == id).first()
@@ -89,23 +103,33 @@ async def actualizar(
         raise HTTPException(status_code=404, detail="No encontrado")
 
     if nombre: obj.nombre = nombre
-    if nacionalidad: obj.nacionalidad = nacionalidad
-    if tipoDocumento: obj.tipoDocumento = tipoDocumento
-    if documento: obj.documento = documento
-    if fechaNacimiento: obj.fechaNacimiento = fechaNacimiento
+    if nacionalidad: obj.nacionalidad = limpiar(nacionalidad)
+    if tipoDocumento: obj.tipoDocumento = limpiar(tipoDocumento)
+    if documento: obj.documento = limpiar(documento)
+    if fechaNacimiento: obj.fechaNacimiento = limpiar(fechaNacimiento)
     if edad: obj.edad = edad
     if dorsal: obj.dorsal = dorsal
-    if contactoEmergencia: obj.contactoEmergencia = contactoEmergencia
-    if estado: obj.estado = estado
-    if fechaIngreso: obj.fechaIngreso = fechaIngreso
-    if fechaSalida: obj.fechaSalida = fechaSalida
-    if torneo: obj.torneo = torneo
+    if contactoEmergencia: obj.contactoEmergencia = limpiar(contactoEmergencia)
+    if estado: obj.estado = limpiar(estado)
+    if fechaIngreso: obj.fechaIngreso = limpiar(fechaIngreso)
+    if fechaSalida: obj.fechaSalida = limpiar(fechaSalida)
+    if torneo: obj.torneo = limpiar(torneo)
     if idCategoria: obj.idCategoria = idCategoria
 
-    if archivo:
-        nombre_archivo = f"{uuid.uuid4()}_{archivo.filename}"
+    if devolucion1:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion1.filename}"
         obj.devolucion1 = subir_archivo(
-            await archivo.read(), nombre_archivo, "jugadores"
+            await devolucion1.read(), nombre_archivo, "jugadores"
+        )
+    if devolucion2:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion2.filename}"
+        obj.devolucion2 = subir_archivo(
+            await devolucion2.read(), nombre_archivo, "jugadores"
+        )
+    if devolucion3:
+        nombre_archivo = f"{uuid.uuid4()}_{devolucion3.filename}"
+        obj.devolucion3 = subir_archivo(
+            await devolucion3.read(), nombre_archivo, "jugadores"
         )
 
     db.commit()

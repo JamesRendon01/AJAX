@@ -7,11 +7,13 @@ http:
   method: PUT
   url: http://127.0.0.1:8000/jugadores/2
   body:
-    type: json
-    data: |-
-      {
-          "nacionalidad": "colombiano"
-      }
+    type: multipart-form
+    data:
+      - name: devolucion1
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
   auth: inherit
 
 settings:
