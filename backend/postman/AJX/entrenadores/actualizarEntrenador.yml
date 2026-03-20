@@ -7,11 +7,13 @@ http:
   method: PUT
   url: http://127.0.0.1:8000/entrenadores/1
   body:
-    type: json
-    data: |-
-      {
-          "nombre": "James"
-      }
+    type: multipart-form
+    data:
+      - name: delitosSexuales
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/logo.jpg
+        contentType: File
   auth: inherit
 
 settings:

@@ -7,15 +7,33 @@ http:
   method: POST
   url: http://127.0.0.1:8000/asistencias
   body:
-    type: json
-    data: |-
-      {
-          "nombre": "Asistencia Enero",
-          "fechaCreacion": "2024-01-18",
-          "fechaCargado": "2024-01-15",
-          "idEntrenador": 1,
-          "idCategoria": 1
-      }
+    type: multipart-form
+    data:
+      - name: nombre
+        type: text
+        value: enero
+        contentType: auto
+      - name: fechaCargado
+        type: text
+        value: 2024-01-15
+        contentType: Auto
+      - name: fechaCreacion
+        type: text
+        value: 2024-01-18
+        contentType: Auto
+      - name: idEntrenador
+        type: text
+        value: "1"
+        contentType: Auto
+      - name: idCategoria
+        type: text
+        value: "1"
+        contentType: Auto
+      - name: Archivo
+        type: file
+        value:
+          - /home/james-rendon/Documentos/AJAX FC/075-TOLOSA DIAZ JERONIMO.pdf
+        contentType: File
   auth: inherit
 
 settings:
