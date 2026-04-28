@@ -1,14 +1,5 @@
-import { useState } from 'react'
-import './App.css'
+import AppRouter from "./router/AppRouter";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div>
-      <h2>Lorem ipsum dolor sit amet consectetur.</h2>
-    </div>
-  )
+export default function App() {
+  return <AppRouter />;
 }
-
-export default App
