@@ -1,0 +1,28 @@
+app = "ajax-backend"
+primary_region = "mia"  # Miami, cerca de tu Neon en us-east-1
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  path = "/"
+  protocol = "http"
+  timeout = "5s"
+  tls_skip_verify = false
+
+[deploy]
+  release_command = "cd backend && alembic upgrade head"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
