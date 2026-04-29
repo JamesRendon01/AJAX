@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 from app.routers import entrenadores, categorias, jugadores, asistencias, planeaciones
+from app.database import get_db
 
 app = FastAPI(title="Ajax API", version="1.0.0")
 
