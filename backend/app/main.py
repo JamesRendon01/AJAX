@@ -26,3 +26,12 @@ app.include_router(planeaciones.router)
 @app.get("/")
 def root():
     return {"status": "ok"}
+
+@app.get("/health")
+def health_check(db: Session = Depends(get_db)):
+    try:
+        from sqlalchemy import text
+        db.execute(text("SELECT 1"))
+        return {"status": "ok", "database": "connected"}
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
