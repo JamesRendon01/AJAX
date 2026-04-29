@@ -5,10 +5,13 @@ import os
 
 load_dotenv()
 
-engine = create_engine(os.getenv("DATABASE_URL"))
-SessionLocal = sessionmaker(bind=engine)
+DATABASE_URL = os.getenv("DATABASE_URL")
+engine = create_engine(DATABASE_URL) if DATABASE_URL else None
+SessionLocal = sessionmaker(bind=engine) if engine else None
 
 def get_db():
+    if SessionLocal is None:
+        raise Exception("Database not configured")
     db = SessionLocal()
     try:
         yield db
