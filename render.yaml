@@ -2,7 +2,7 @@ services:
   - type: web
     name: ajax-api
     runtime: python
-    repo: https://github.com/tu-usuario/ajax  # CAMBIA esto por tu URL de GitHub
+    repo: https://github.com/JamesRendon01/AJAX.git  # CAMBIA esto por tu URL de GitHub
     branch: main
     plan: free
     buildCommand: pip install -r backend/requirements.txt
