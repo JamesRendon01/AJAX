@@ -90,6 +90,13 @@ export default function Login() {
           {loading ? "Ingresando..." : "Ingresar"}
         </button>
 
+        <a
+          href="/forgot-password"
+          className="block text-center text-gray-400 hover:text-white text-sm mt-4 transition-colors"
+        >
+          ¿Olvidaste tu contrasena?
+        </a>
+
         {error && (
           <div className="flex items-center gap-2 bg-yellow-50 border border-yellow-400 rounded-lg px-4 py-3 mt-4">
             <AlertCircle className="text-yellow-500 w-5 h-5 flex-shrink-0" />

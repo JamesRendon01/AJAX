@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import authService from "../services/authService";
 import Login from "../pages/auth/Login";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Entrenadores from "../pages/entrenadores/Entrenadores";
 import Categorias from "../pages/categorias/Categorias";
@@ -27,6 +29,8 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/entrenadores" element={<PrivateRoute><Entrenadores /></PrivateRoute>} />
         <Route path="/categorias" element={<PrivateRoute><Categorias /></PrivateRoute>} />
