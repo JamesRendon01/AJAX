@@ -1,24 +1,19 @@
-import smtplib
 import os
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import resend
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
-SMTP_USER = os.getenv("SMTP_USER", "")
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
-SMTP_FROM = os.getenv("SMTP_FROM", "noreply@ajaxclub.com")
+resend.api_key = os.getenv("RESEND_API_KEY", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+FROM_EMAIL = os.getenv("RESEND_FROM", "onboarding@resend.dev")
 
 
 def send_reset_email(to_email: str, token: str, nombre: str):
     reset_link = f"{FRONTEND_URL}/reset-password/{token}"
 
     subject = "Recuperacion de contrasena - Club Deportivo"
-    body = f"""
+    html = f"""
     <html>
     <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;">
         <div style="max-width: 500px; margin: 0 auto; background: white; border-radius: 12px; padding: 30px;">
@@ -40,17 +35,14 @@ def send_reset_email(to_email: str, token: str, nombre: str):
     </html>
     """
 
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = SMTP_FROM
-    msg["To"] = to_email
-    msg.attach(MIMEText(body, "html"))
-
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.sendmail(SMTP_FROM, to_email, msg.as_string())
+        params: resend.Emails.SendParams = {
+            "from": FROM_EMAIL,
+            "to": [to_email],
+            "subject": subject,
+            "html": html,
+        }
+        resend.Emails.send(params)
         print(f"Correo enviado a {to_email}")
     except Exception as e:
         print(f"Error al enviar correo a {to_email}: {e}")
