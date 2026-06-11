@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: ajax-api
+    runtime: python
+    repo: https://github.com/tu-usuario/ajax  # CAMBIA esto por tu URL de GitHub
+    branch: main
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && bash start.sh
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ajax-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: STORAGE_BUCKET
+        value: ajax-uploads
+
+databases:
+  - name: ajax-db
+    databaseName: ajax
+    plan: free
+    region: oregon

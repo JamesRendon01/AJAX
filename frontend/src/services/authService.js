@@ -1,22 +1,19 @@
-import { mockUsuarios } from "../mock/data";
+import api from "./api";
 
 const authService = {
-  login: ({ username, password }) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const usuario = mockUsuarios.find(
-          (u) => u.username === username && u.password === password
-        );
-        if (usuario) {
-          localStorage.setItem("user", JSON.stringify(usuario));
-          resolve(usuario);
-        } else {
-          reject(new Error("Credenciales incorrectas"));
-        }
-      }, 800);
-    });
+  login: async ({ username, password }) => {
+    try {
+      const response = await api.post("/auth/login", { username, password });
+      const { access_token, user } = response.data;
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
+    } catch (error) {
+      throw new Error(error.response?.data?.detail || "Credenciales incorrectas");
+    }
   },
   logout: () => {
+    localStorage.removeItem("token");
     localStorage.removeItem("user");
     window.location.href = "/login";
   },
@@ -24,7 +21,7 @@ const authService = {
     const user = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
   },
-  isAuthenticated: () => !!localStorage.getItem("user"),
+  isAuthenticated: () => !!localStorage.getItem("token"),
   getRol: () => {
     const user = localStorage.getItem("user");
     return user ? JSON.parse(user).rol : null;

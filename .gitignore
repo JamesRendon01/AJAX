@@ -6,5 +6,16 @@ __pycache__/
 # Variables de entorno
 .env
 
+# Archivos subidos localmente
+uploads/
+
 # Sistema
 .DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# SQLite local db
+*.db
