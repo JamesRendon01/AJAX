@@ -14,7 +14,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:5174",
         "http://192.168.20.28:5174",
-        "https://*.vercel.app",
+        "https://ajax-liart.vercel.app",
         "https://*.onrender.com",
     ],
     allow_credentials=True,
