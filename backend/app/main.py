@@ -1,14 +1,22 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy.orm import Session
 from pathlib import Path
 from app.routers import entrenadores, categorias, jugadores, asistencias, planeaciones, auth
+from app.database import get_db
 
 app = FastAPI(title="Ajax API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://192.168.20.28:5174",
+        "https://*.vercel.app",
+        "https://*.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,3 +36,12 @@ app.include_router(auth.router)
 @app.get("/")
 def root():
     return {"status": "ok"}
+
+@app.get("/health")
+def health_check(db: Session = Depends(get_db)):
+    try:
+        from sqlalchemy import text
+        db.execute(text("SELECT 1"))
+        return {"status": "ok", "database": "connected"}
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
