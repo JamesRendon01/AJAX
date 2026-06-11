@@ -6,9 +6,9 @@ import { FileText } from "lucide-react";
 
 function Badge({ children, color }) {
   const colors = {
-    rojo: { bg: "#FCEBEB", color: "#A32D2D" },
-    azul: { bg: "#E6F1FB", color: "#0C447C" },
-    blanco: { bg: "#F1EFE8", color: "#5F5E5A" },
+    rojo: { bg: "#FEF2F2", color: "#991B1B" },
+    azul: { bg: "#EFF6FF", color: "#1E3A8A" },
+    blanco: { bg: "#F9FAFB", color: "#4B5563" },
   };
   const style = colors[color?.toLowerCase()] || colors.azul;
   return (
@@ -123,58 +123,58 @@ export default function AsistenciasAdmin() {
 
   if (loading)
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-100">
-        <p className="text-gray-500 text-sm">Cargando...</p>
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
       </div>
     );
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200">
+        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
           <div>
-            <h1 className="text-xl font-medium text-gray-800">Asistencias</h1>
+            <h1 className="text-xl font-bold text-club-blue">Asistencias</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               Historial general de asistencias subidas por todos los entrenadores
             </p>
           </div>
-          <button className="px-3 py-1.5 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-700">
+          <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-sm px-4 py-2 rounded-lg transition-colors">
             Exportar
           </button>
         </div>
 
-        <div className="p-5">
-          <div className="grid grid-cols-4 gap-2.5 mb-4">
-            <div className="bg-white rounded-lg p-3 border border-gray-200">
-              <p className="text-gray-500 text-xs mb-1">Total archivos</p>
-              <p className="text-blue-600 text-2xl font-medium">{total}</p>
+        <div className="p-6">
+          <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <p className="text-gray-500 text-sm font-medium mb-1">Total archivos</p>
+              <p className="text-club-blue text-3xl font-bold">{total}</p>
             </div>
-            <div className="bg-white rounded-lg p-3 border border-gray-200">
-              <p className="text-gray-500 text-xs mb-1">Cat. Rojo</p>
-              <p className="text-red-500 text-2xl font-medium">{catRojo}</p>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Rojo</p>
+              <p className="text-club-red text-3xl font-bold">{catRojo}</p>
             </div>
-            <div className="bg-white rounded-lg p-3 border border-gray-200">
-              <p className="text-gray-500 text-xs mb-1">Cat. Azul</p>
-              <p className="text-blue-600 text-2xl font-medium">{catAzul}</p>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Azul</p>
+              <p className="text-club-blue text-3xl font-bold">{catAzul}</p>
             </div>
-            <div className="bg-white rounded-lg p-3 border border-gray-200">
-              <p className="text-gray-500 text-xs mb-1">Cat. Blanco</p>
-              <p className="text-gray-500 text-2xl font-medium">{catBlanco}</p>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Blanco</p>
+              <p className="text-gray-600 text-3xl font-bold">{catBlanco}</p>
             </div>
           </div>
 
-          <div className="flex gap-2.5 mb-4 flex-wrap">
+          <div className="flex gap-3 mb-6 flex-wrap">
             <input
               type="text"
               placeholder="Buscar por nombre..."
-              className="flex-1 min-w-[180px] max-w-[260px] px-3 py-2 border border-gray-200 rounded-lg text-sm"
+              className="flex-1 min-w-[180px] max-w-[260px] px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-club-blue focus:border-transparent"
               value={filtros.search}
               onChange={(e) => setFiltros({ ...filtros, search: e.target.value })}
             />
             <select
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-club-blue"
               value={filtros.idCategoria}
               onChange={(e) => setFiltros({ ...filtros, idCategoria: e.target.value })}
             >
@@ -184,7 +184,7 @@ export default function AsistenciasAdmin() {
               ))}
             </select>
             <select
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-club-blue"
               value={filtros.idEntrenador}
               onChange={(e) => setFiltros({ ...filtros, idEntrenador: e.target.value })}
             >
@@ -194,7 +194,7 @@ export default function AsistenciasAdmin() {
               ))}
             </select>
             <select
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white"
+              className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-club-blue"
               value={filtros.mes}
               onChange={(e) => setFiltros({ ...filtros, mes: e.target.value })}
             >
@@ -205,49 +205,49 @@ export default function AsistenciasAdmin() {
             </select>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-gray-50">
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[22%]">Nombre archivo</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[16%]">Categoría</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[18%]">Entrenador</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[16%]">Fecha carga</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[16%]">Fecha creación</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-medium text-gray-500 w-[12%]">Acciones</th>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[22%]">Nombre archivo</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Categoría</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[18%]">Entrenador</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Fecha carga</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Fecha creación</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[12%]">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((a) => (
-                  <tr key={a.id} className="border-t border-gray-100">
-                    <td className="px-3 py-2.5 text-sm text-gray-800 flex items-center gap-2">
-                      <FileText size={14} className="text-blue-600" />
+                {filtered.map((a, i) => (
+                  <tr key={a.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
+                    <td className="px-4 py-3 text-sm text-gray-800 flex items-center gap-2">
+                      <FileText size={14} className="text-club-blue" />
                       {a.nombre}
                     </td>
-                    <td className="px-3 py-2.5">
+                    <td className="px-4 py-3">
                       <Badge color={getCategoriaColor(a.idCategoria)}>
                         {getCategoriaNombre(a.idCategoria)}
                       </Badge>
                     </td>
-                    <td className="px-3 py-2.5 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-gray-600">
                       {getEntrenadorNombreByCategoria(a.idCategoria)}
                     </td>
-                    <td className="px-3 py-2.5 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-gray-600">
                       {formatDate(a.fechaCargado)}
                     </td>
-                    <td className="px-3 py-2.5 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-gray-600">
                       {formatDate(a.fechaCreacion)}
                     </td>
-                    <td className="px-3 py-2.5 flex gap-1">
-                      <button className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded hover:bg-gray-200">Ver</button>
-                      <button onClick={() => eliminar(a.id)} className="px-2 py-1 border border-red-200 text-red-600 text-xs rounded hover:bg-red-50">Eliminar</button>
+                    <td className="px-4 py-3 flex gap-1">
+                      <button className="px-3 py-1.5 border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs rounded-md transition-colors">Ver</button>
+                      <button onClick={() => eliminar(a.id)} className="px-3 py-1.5 border border-red-200 text-club-red text-xs rounded-md hover:bg-red-50 transition-colors">Eliminar</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-gray-500 mt-2.5">Mostrando {total} de {total} registros</p>
+          <p className="text-xs text-gray-400 mt-3">Mostrando {total} de {total} registros</p>
         </div>
       </div>
     </div>

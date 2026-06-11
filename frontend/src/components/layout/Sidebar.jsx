@@ -13,26 +13,35 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 bg-[#1a4480] flex flex-col min-h-screen">
-      <div className="px-4 py-5">
-        <p className="text-white font-medium text-sm">Club Deportivo</p>
-        <p className="text-blue-300 text-xs mt-1">Panel Administrador</p>
+    <aside className="w-64 bg-club-blue flex flex-col min-h-screen shadow-xl">
+      <div className="px-5 py-6 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <img
+            src="/Logo.jpeg"
+            alt="Club"
+            className="w-10 h-10 rounded-lg object-contain bg-white p-1"
+          />
+          <div>
+            <p className="text-white font-bold text-sm leading-tight">Club Deportivo</p>
+            <p className="text-blue-200 text-xs mt-0.5">Panel Administrador</p>
+          </div>
+        </div>
       </div>
 
-      <nav className="flex-1 px-2">
+      <nav className="flex-1 px-3 py-4">
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm mb-1 transition-colors ${
+              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm mb-0.5 transition-all ${
                 isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-blue-200 hover:bg-white/10 hover:text-white"
+                  ? "bg-white text-club-blue font-semibold shadow-md"
+                  : "text-blue-100 hover:bg-white/10 hover:text-white"
               }`
             }
           >
-            <Icon size={17} />
+            <Icon size={18} />
             {label}
           </NavLink>
         ))}
@@ -40,14 +49,14 @@ export default function Sidebar() {
 
       <div className="p-4 border-t border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-[#3b5e8c] flex items-center justify-center text-white text-xs font-medium">
+          <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold">
             AD
           </div>
-          <div>
-            <p className="text-white text-sm font-medium">Administrador</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-white text-sm font-medium truncate">Administrador</p>
             <button
               onClick={authService.logout}
-              className="text-blue-300 text-xs hover:text-white flex items-center gap-1"
+              className="text-blue-200 text-xs hover:text-white flex items-center gap-1 transition-colors"
             >
               <LogOut size={11} /> Cerrar sesión
             </button>

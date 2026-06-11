@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../../components/layout/Sidebar";        // ✅ corregido 'layaut' → 'layout'
+import Sidebar from "../../components/layout/Sidebar";
 import dashboardService from "../../services/dashboardService";
 
-const StatCard = ({ label, value }) => (
-  <div className="bg-[#2d2d2d] rounded-xl p-4">
-    <p className="text-gray-400 text-sm leading-snug mb-2">{label}</p>
-    <p className="text-blue-500 text-3xl font-medium">{value}</p>
+const StatCard = ({ label, value, color = "text-club-blue" }) => (
+  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+    <p className="text-gray-500 text-sm font-medium mb-1">{label}</p>
+    <p className={`text-3xl font-bold ${color}`}>{value}</p>
   </div>
 );
 
@@ -39,49 +39,44 @@ export default function Dashboard() {
     : 1;
 
   if (loading) return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-200">
-      <p className="text-gray-500 text-sm">Cargando...</p>
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
     </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-200">
+    <div className="flex min-h-screen bg-gray-50">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        {/* Topbar */}
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200">
+        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
           <div>
-            <h1 className="text-xl font-medium text-gray-800">Dashboard</h1>
+            <h1 className="text-xl font-bold text-club-blue">Dashboard</h1>
             <p className="text-sm text-gray-500 mt-0.5">Bienvenido, resumen general del sistema</p>
           </div>
           <p className="text-sm text-gray-500 capitalize">{fecha}</p>
         </div>
 
-        {/* Contenido */}
         <div className="p-6 flex-1">
-          {/* Tarjetas estadísticas */}
-          <div className="grid grid-cols-4 gap-3 mb-4">
+          <div className="grid grid-cols-4 gap-4 mb-6">
             <StatCard label="Total entrenadores" value={stats.entrenadores} />
-            <StatCard label="Total jugadores" value={stats.jugadores} />
+            <StatCard label="Total jugadores" value={stats.jugadores} color="text-club-red" />
             <StatCard label="Categorías activas" value={stats.categorias} />
-            <StatCard label="Planeaciones este mes" value={stats.planeaciones} />
+            <StatCard label="Planeaciones este mes" value={stats.planeaciones} color="text-club-red" />
           </div>
 
-          {/* Paneles inferiores */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Jugadores por categoría */}
-            <div className="bg-[#2d2d2d] rounded-xl p-5">
-              <h2 className="text-white font-medium mb-4">Jugadores por categoría</h2>
-              {jugadoresCat.map((cat) => (
-                <div key={cat.id} className="mb-4">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <h2 className="text-gray-800 font-bold text-lg mb-4">Jugadores por categoría</h2>
+              {jugadoresCat.map((cat, i) => (
+                <div key={cat.id} className="mb-4 last:mb-0">
                   <div className="flex justify-between mb-1.5">
-                    <span className="text-gray-400 text-sm">{cat.nombre}</span>
-                    <span className="text-gray-400 text-sm">{cat.jugadores}</span>
+                    <span className="text-gray-600 text-sm font-medium">{cat.nombre}</span>
+                    <span className="text-gray-500 text-sm">{cat.jugadores}</span>
                   </div>
-                  <div className="h-1.5 bg-gray-600 rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full rounded-full transition-all duration-500"
+                      className="h-full rounded-full transition-all duration-700"
                       style={{
                         width: `${(cat.jugadores / maxJugadores) * 100}%`,
                         background: cat.color,
@@ -92,23 +87,22 @@ export default function Dashboard() {
               ))}
             </div>
 
-            {/* Entrenadores */}
-            <div className="bg-[#2d2d2d] rounded-xl p-5">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-white font-medium">Entrenadores</h2>
-                <button className="text-blue-400 text-sm hover:text-blue-300">Ver todos</button>
+                <h2 className="text-gray-800 font-bold text-lg">Entrenadores</h2>
+                <button className="text-club-blue text-sm font-medium hover:text-blue-700 transition-colors">Ver todos</button>
               </div>
               {entrenadores.map((e) => (
-                <div key={e.id} className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[#3b5e8c] flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
+                <div key={e.id} className="flex items-center gap-3 mb-4 last:mb-0 pb-4 last:pb-0 border-b last:border-0 border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-club-blue to-blue-700 flex items-center justify-center text-white text-xs font-bold shadow-sm flex-shrink-0">
                     {e.initials}
                   </div>
                   <div className="flex-1">
-                    <p className="text-white text-sm font-medium">{e.nombre}</p>
-                    <p className="text-gray-400 text-xs mt-0.5">{e.categoria} · {e.anio}</p>
+                    <p className="text-gray-800 text-sm font-medium">{e.nombre}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{e.categoria} · {e.anio}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    e.activo ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                    e.activo ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
                   }`}>
                     {e.activo ? "Activo" : "Inactivo"}
                   </span>
