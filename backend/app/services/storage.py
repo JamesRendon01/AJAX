@@ -1,16 +1,8 @@
-from supabase import create_client
-from dotenv import load_dotenv
-import httpx
 import os
+import shutil
+from pathlib import Path
 
-load_dotenv()
-
-supabase = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY")
-)
-
-BUCKET = os.getenv("STORAGE_BUCKET")
+UPLOAD_DIR = Path(__file__).resolve().parent.parent.parent / "uploads"
 
 MIME_TYPES = {
     ".pdf": "application/pdf",
@@ -27,17 +19,17 @@ def limpiar(valor):
     return valor
 
 def subir_archivo(archivo_bytes: bytes, nombre_archivo: str, carpeta: str) -> str:
-    extension = os.path.splitext(nombre_archivo)[1].lower()
-    content_type = MIME_TYPES.get(extension, "application/pdf")
-    ruta = f"{carpeta}/{nombre_archivo}"
-    
-    supabase.storage.from_(BUCKET).upload(
-        ruta,
-        archivo_bytes,
-        {"content-type": content_type, "x-upsert": "true"}
-    )
-    url = supabase.storage.from_(BUCKET).get_public_url(ruta)
-    return url
+    destino = UPLOAD_DIR / carpeta
+    destino.mkdir(parents=True, exist_ok=True)
+
+    ruta_completa = destino / nombre_archivo
+    with open(ruta_completa, "wb") as f:
+        f.write(archivo_bytes)
+
+    return f"/uploads/{carpeta}/{nombre_archivo}"
 
 def eliminar_archivo(ruta: str):
-    supabase.storage.from_(BUCKET).remove([ruta])
+    ruta = ruta.lstrip("/")
+    archivo = UPLOAD_DIR / ruta.replace("uploads/", "", 1)
+    if archivo.exists():
+        archivo.unlink()
