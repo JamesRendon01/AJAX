@@ -16,7 +16,7 @@ export default function Planeaciones() {
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Planeaciones</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Gestiona las planeaciones de tu categoría</p>
+            <p className="text-sm text-gray-500 mt-0.5">Gestiona las planeaciones de tu grupo</p>
           </div>
           <button className="bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
             + Nueva planeación
@@ -49,7 +49,7 @@ export default function Planeaciones() {
                     {p.estado === "activa" ? "Activa" : "Finalizada"}
                   </span>
                 </div>
-                <p className="text-gray-500 text-sm mb-4">{p.categoria}</p>
+                <p className="text-gray-500 text-sm mb-4">{p.grupo}</p>
 
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   {[["Inicio", p.inicio], ["Fin", p.fin], ["Cargado", p.cargado]].map(([label, val]) => (

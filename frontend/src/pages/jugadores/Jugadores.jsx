@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import { mockJugadores } from "../../mock/data";
 
-const catColor = { Rojo: "bg-red-50 text-red-700 border-red-200", Azul: "bg-blue-50 text-blue-700 border-blue-200", Blanco: "bg-gray-100 text-gray-600 border-gray-200" };
+const grupoColor = { ROJO: "bg-red-50 text-red-700 border-red-200", AZUL: "bg-blue-50 text-blue-700 border-blue-200", BLANCO: "bg-gray-100 text-gray-600 border-gray-200" };
 
-function getBadge(cat) {
-  return catColor[cat] || "bg-gray-100 text-gray-600 border-gray-200";
+function getBadgeColor(grupo) {
+  return grupoColor[grupo] || "bg-gray-100 text-gray-600 border-gray-200";
 }
 
 export default function Jugadores() {
   const [jugadores, setJugadores] = useState([]);
   const [busqueda, setBusqueda] = useState("");
-  const [catFiltro, setCatFiltro] = useState("todas");
+  const [grupoFiltro, setGrupoFiltro] = useState("todas");
   const [anioFiltro, setAnioFiltro] = useState("todos");
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
 
@@ -21,14 +21,14 @@ export default function Jugadores() {
 
   const filtrados = jugadores.filter((j) => {
     const matchBusqueda = j.nombre.toLowerCase().includes(busqueda.toLowerCase()) || j.documento.includes(busqueda);
-    const matchCat = catFiltro === "todas" || j.categoria === catFiltro;
+    const matchGrupo = grupoFiltro === "todas" || j.grupo === grupoFiltro;
     const matchAnio = anioFiltro === "todos" || j.anio === Number(anioFiltro);
     const matchEstado = estadoFiltro === "todos" || j.estado === estadoFiltro;
-    return matchBusqueda && matchCat && matchAnio && matchEstado;
+    return matchBusqueda && matchGrupo && matchAnio && matchEstado;
   });
 
   const total = jugadores.length;
-  const porCat = (cat) => jugadores.filter((j) => j.categoria === cat).length;
+  const porGrupo = (g) => jugadores.filter((j) => j.grupo === g).length;
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -56,16 +56,16 @@ export default function Jugadores() {
               <p className="text-club-blue text-3xl font-bold">{total}</p>
             </div>
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Rojo</p>
-              <p className="text-club-red text-3xl font-bold">{porCat("Rojo")}</p>
+              <p className="text-gray-500 text-sm font-medium mb-1">Grupo Rojo</p>
+              <p className="text-club-red text-3xl font-bold">{porGrupo("ROJO")}</p>
             </div>
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Azul</p>
-              <p className="text-club-blue text-3xl font-bold">{porCat("Azul")}</p>
+              <p className="text-gray-500 text-sm font-medium mb-1">Grupo Azul</p>
+              <p className="text-club-blue text-3xl font-bold">{porGrupo("AZUL")}</p>
             </div>
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-              <p className="text-gray-500 text-sm font-medium mb-1">Cat. Blanco</p>
-              <p className="text-gray-600 text-3xl font-bold">{porCat("Blanco")}</p>
+              <p className="text-gray-500 text-sm font-medium mb-1">Grupo Blanco</p>
+              <p className="text-gray-600 text-3xl font-bold">{porGrupo("BLANCO")}</p>
             </div>
           </div>
 
@@ -74,12 +74,12 @@ export default function Jugadores() {
             className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-club-blue focus:border-transparent" />
 
           <div className="grid grid-cols-3 gap-3 mb-6">
-            <select value={catFiltro} onChange={(e) => setCatFiltro(e.target.value)}
+            <select value={grupoFiltro} onChange={(e) => setGrupoFiltro(e.target.value)}
               className="border border-gray-200 bg-white text-gray-600 text-sm px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-club-blue">
-              <option value="todas">Todas las categorías</option>
-              <option value="Rojo">Categoría Rojo</option>
-              <option value="Azul">Categoría Azul</option>
-              <option value="Blanco">Categoría Blanco</option>
+              <option value="todas">Todos los grupos</option>
+              <option value="ROJO">GRUPO ROJO</option>
+              <option value="AZUL">GRUPO AZUL</option>
+              <option value="BLANCO">GRUPO BLANCO</option>
             </select>
             <select value={anioFiltro} onChange={(e) => setAnioFiltro(e.target.value)}
               className="border border-gray-200 bg-white text-gray-600 text-sm px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-club-blue">
@@ -98,7 +98,7 @@ export default function Jugadores() {
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
-                  {["Nombre", "Documento", "Categoría", "Entrenador", "Dorsal", "Estado", "Acciones"].map((h) => (
+                  {["Nombre", "Documento", "Grupo", "Entrenador", "Dorsal", "Estado", "Acciones"].map((h) => (
                     <th key={h} className="text-gray-600 text-sm font-semibold text-left px-4 py-3">{h}</th>
                   ))}
                 </tr>
@@ -109,8 +109,8 @@ export default function Jugadores() {
                     <td className="text-gray-800 text-sm px-4 py-4 font-medium">{j.nombre}</td>
                     <td className="text-gray-600 text-sm px-4 py-4">{j.documento}</td>
                     <td className="px-4 py-4">
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-md border ${getBadge(j.categoria)}`}>
-                        {j.categoria}<br/>{j.anio}
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-md border ${getBadgeColor(j.grupo)}`}>
+                        GRUPO {j.grupo}<br/>{j.anio}
                       </span>
                     </td>
                     <td className="text-gray-600 text-sm px-4 py-4">{j.entrenador}</td>

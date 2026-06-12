@@ -20,7 +20,7 @@ export default function Dashboard() {
       const [s, e, j] = await Promise.all([
         dashboardService.getStats(),
         dashboardService.getEntrenadores(3),
-        dashboardService.getJugadoresPorCategoria(),
+        dashboardService.getJugadoresPorGrupo(),
       ]);
       setStats(s);
       setEntrenadores(e);
@@ -61,25 +61,25 @@ export default function Dashboard() {
           <div className="grid grid-cols-4 gap-4 mb-6">
             <StatCard label="Total entrenadores" value={stats.entrenadores} />
             <StatCard label="Total jugadores" value={stats.jugadores} color="text-club-red" />
-            <StatCard label="Categorías activas" value={stats.categorias} />
+            <StatCard label="Grupos activos" value={stats.grupos} />
             <StatCard label="Planeaciones este mes" value={stats.planeaciones} color="text-club-red" />
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <h2 className="text-gray-800 font-bold text-lg mb-4">Jugadores por categoría</h2>
-              {jugadoresCat.map((cat, i) => (
-                <div key={cat.id} className="mb-4 last:mb-0">
+              <h2 className="text-gray-800 font-bold text-lg mb-4">Jugadores por grupo</h2>
+              {jugadoresCat.map((g, i) => (
+                <div key={g.id} className="mb-4 last:mb-0">
                   <div className="flex justify-between mb-1.5">
-                    <span className="text-gray-600 text-sm font-medium">{cat.nombre}</span>
-                    <span className="text-gray-500 text-sm">{cat.jugadores}</span>
+                    <span className="text-gray-600 text-sm font-medium">{g.nombre}</span>
+                    <span className="text-gray-500 text-sm">{g.jugadores}</span>
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{
-                        width: `${(cat.jugadores / maxJugadores) * 100}%`,
-                        background: cat.color,
+                        width: `${(g.jugadores / maxJugadores) * 100}%`,
+                        background: g.color,
                       }}
                     />
                   </div>
@@ -99,7 +99,7 @@ export default function Dashboard() {
                   </div>
                   <div className="flex-1">
                     <p className="text-gray-800 text-sm font-medium">{e.nombre}</p>
-                    <p className="text-gray-500 text-xs mt-0.5">{e.categoria} · {e.anio}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{e.grupo} · {e.anio}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                     e.activo ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"

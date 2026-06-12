@@ -8,6 +8,7 @@ function Badge({ children, color }) {
     rojo: { bg: "#FEF2F2", color: "#991B1B" },
     azul: { bg: "#EFF6FF", color: "#1E3A8A" },
     blanco: { bg: "#F9FAFB", color: "#4B5563" },
+    blanca: { bg: "#F9FAFB", color: "#4B5563" },
     activa: { bg: "#EFF6FF", color: "#1E3A8A" },
     finalizada: { bg: "#F9FAFB", color: "#4B5563" },
   };
@@ -182,7 +183,7 @@ export default function Planeaciones() {
               value={filtros.idCategoria}
               onChange={(e) => setFiltros({ ...filtros, idCategoria: e.target.value })}
             >
-              <option value="">Todas las categorías</option>
+              <option value="">Todos los grupos</option>
               {categorias.map((c) => (
                 <option key={c.id} value={c.id}>{c.nombre} {c.ano}</option>
               ))}
@@ -213,7 +214,7 @@ export default function Planeaciones() {
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[22%]">Nombre</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[15%]">Categoría</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[15%]">Grupo</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Entrenador</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[13%]">Fecha inicio</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[13%]">Fecha fin</th>

@@ -5,7 +5,7 @@ import authService from "../../services/authService";
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/entrenadores", icon: Users, label: "Entrenadores" },
-  { to: "/categorias", icon: Home, label: "Categorías" },
+  { to: "/grupos", icon: Home, label: "Grupos" },
   { to: "/jugadores", icon: User, label: "Jugadores" },
   { to: "/asistencias", icon: FileText, label: "Asistencias" },
   { to: "/planeaciones", icon: Calendar, label: "Planeaciones" },

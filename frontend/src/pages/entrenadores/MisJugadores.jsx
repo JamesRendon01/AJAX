@@ -31,7 +31,7 @@ export default function MisJugadores() {
           <div>
             <h1 className="text-xl font-bold text-club-blue">Mis Deportistas</h1>
             <p className="text-sm text-gray-500 mt-0.5">
-              Categoría {mockEntrenadorActual.categoria} · {mockEntrenadorActual.nombre}
+              Grupo {mockEntrenadorActual.grupo} · {mockEntrenadorActual.nombre}
             </p>
           </div>
           <div className="flex gap-2">

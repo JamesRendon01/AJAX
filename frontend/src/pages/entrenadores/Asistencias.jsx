@@ -37,10 +37,10 @@ export default function Asistencias() {
                 />
               </div>
               <div>
-                <label className="text-gray-600 text-sm font-medium block mb-2">Categoría</label>
+                <label className="text-gray-600 text-sm font-medium block mb-2">Grupo</label>
                 <input
                   type="text"
-                  value="Categoría Rojo 2025"
+                  value="GRUPO ROJO 2025"
                   readOnly
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-gray-500 text-sm bg-gray-50 focus:outline-none"
                 />

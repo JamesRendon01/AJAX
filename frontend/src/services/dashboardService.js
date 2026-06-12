@@ -1,4 +1,4 @@
-import { mockStats, mockEntrenadores, mockCategorias } from "../mock/data";
+import { mockStats, mockEntrenadores, mockGrupos } from "../mock/data";
 
 const delay = (ms = 400) => new Promise((r) => setTimeout(r, ms));
 
@@ -13,9 +13,9 @@ const dashboardService = {
     return mockEntrenadores.slice(0, limit);
   },
 
-  getJugadoresPorCategoria: async () => {
+  getJugadoresPorGrupo: async () => {
     await delay();
-    return mockCategorias;
+    return mockGrupos;
   },
 };
 

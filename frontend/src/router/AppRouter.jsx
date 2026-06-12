@@ -5,7 +5,7 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Entrenadores from "../pages/entrenadores/Entrenadores";
-import Categorias from "../pages/categorias/Categorias";
+import Grupos from "../pages/grupos/Grupos";
 import DashboardEntrenador from "../pages/entrenadores/DashboardEntrenador";
 import AsistenciasEntrenador from "../pages/entrenadores/Asistencias";
 import AsistenciasAdmin from "../pages/asistencias/AsistenciasAdmin";
@@ -33,7 +33,7 @@ export default function AppRouter() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/entrenadores" element={<PrivateRoute><Entrenadores /></PrivateRoute>} />
-        <Route path="/categorias" element={<PrivateRoute><Categorias /></PrivateRoute>} />
+        <Route path="/grupos" element={<PrivateRoute><Grupos /></PrivateRoute>} />
         <Route path="/asistencias" element={<PrivateRoute><AsistenciasAdmin /></PrivateRoute>} />
         <Route path="/planeaciones" element={<PrivateRoute><PlaneacionesAdmin /></PrivateRoute>} />
         <Route path="/entrenador/dashboard" element={<PrivateRoute><DashboardEntrenador /></PrivateRoute>} />
