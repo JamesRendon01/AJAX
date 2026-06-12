@@ -13,8 +13,8 @@ const navItems = [
 export default function SidebarEntrenador() {
   const e = mockEntrenadorActual;
   return (
-    <aside className="w-64 bg-red-400 flex flex-col min-h-screen shadow-xl">
-      <div className="px-5 py-6 border-b border-black/10">
+    <aside className="w-64 bg-white flex flex-col min-h-screen shadow-xl">
+      <div className="px-5 py-6 border-b border-gray-200">
         <div className="flex items-center gap-3">
           <img
             src="/Logo.jpeg"
@@ -23,7 +23,7 @@ export default function SidebarEntrenador() {
           />
           <div>
             <p className="text-black font-bold text-sm leading-tight">Club Deportivo</p>
-            <p className="text-black/60 text-xs mt-0.5">Panel Entrenador</p>
+            <p className="text-gray-500 text-xs mt-0.5">Panel Entrenador</p>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@ export default function SidebarEntrenador() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm mb-0.5 transition-all ${
                 isActive
-                  ? "bg-white text-black font-semibold shadow-md"
-                  : "text-black/70 hover:bg-black/10 hover:text-black"
+                  ? "bg-red-50 text-red-700 font-semibold"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
               }`
             }
           >
@@ -42,14 +42,14 @@ export default function SidebarEntrenador() {
           </NavLink>
         ))}
       </nav>
-      <div className="p-4 border-t border-black/10">
+      <div className="p-4 border-t border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-black text-xs font-bold">
+          <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 text-xs font-bold">
             {e.initials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-black text-sm font-medium truncate">{e.nombre}</p>
-            <button onClick={authService.logout} className="text-black/60 text-xs hover:text-black flex items-center gap-1 transition-colors">
+            <p className="text-gray-900 text-sm font-medium truncate">{e.nombre}</p>
+            <button onClick={authService.logout} className="text-gray-500 text-xs hover:text-gray-700 flex items-center gap-1 transition-colors">
               <LogOut size={11} /> Cerrar sesión
             </button>
           </div>
