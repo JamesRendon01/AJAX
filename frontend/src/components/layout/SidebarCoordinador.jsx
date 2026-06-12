@@ -14,7 +14,7 @@ export default function SidebarCoordinador() {
   const initials = user?.nombre?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase() || "CO";
 
   return (
-    <aside className="w-64 bg-red-700 flex flex-col min-h-screen shadow-xl">
+    <aside className="w-64 bg-red-600 flex flex-col min-h-screen shadow-xl">
       <div className="px-5 py-6 border-b border-white/10">
         <div className="flex items-center gap-3">
           <img
