@@ -47,6 +47,17 @@ try:
         cargo="Entrenadora Asistente"
     )
     
+    coordinador = Entrenador(
+        nombre="Coordinador Deportivo",
+        tipoDocumento="CC",
+        documento="coordinador",
+        password="1234",
+        rol="coordinador",
+        celular="3009876543",
+        cargo="Coordinador Deportivo"
+    )
+    db.add(coordinador)
+
     db.add_all([entrenador1, entrenador2])
     db.commit()
     
@@ -174,6 +185,7 @@ try:
     print("Datos de prueba creados exitosamente!")
     print(f"Usuarios: {db.query(Entrenador).count()}")
     print(f"  admin / admin123 (rol: admin)")
+    print(f"  coordinador / 1234 (rol: coordinador)")
     print(f"  12345678 / 1234 (rol: entrenador)")
     print(f"  87654321 / 1234 (rol: entrenador)")
     print(f"Categorías: {db.query(Categoria).count()}")

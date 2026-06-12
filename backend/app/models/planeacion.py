@@ -12,5 +12,7 @@ class Planeacion(Base):
     fechaCarga  = Column(Date)
     archivo     = Column(String)
     idCategoria = Column(Integer, ForeignKey("categorias.id"))
+    lapsoInicio = Column(Date, nullable=True)
+    lapsoFin    = Column(Date, nullable=True)
 
     categoria = relationship("Categoria", back_populates="planeaciones")

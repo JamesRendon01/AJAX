@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
+import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import entrenadorService from "../../services/entrenadorService";
+import authService from "../../services/authService";
 
 export default function Entrenadores() {
   const [entrenadores, setEntrenadores] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(true);
+  const rol = authService.getRol();
+  const esAdmin = rol === "admin";
+  const esCoordinador = rol === "coordinador";
 
   useEffect(() => {
     entrenadorService.getAll().then((data) => {
@@ -19,18 +24,27 @@ export default function Entrenadores() {
     e.documento.includes(busqueda)
   );
 
+  const formatDate = (date) => {
+    if (!date) return "-";
+    return new Date(date).toLocaleDateString("es-ES", {
+      day: "2-digit", month: "short", year: "numeric",
+    });
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+      {esCoordinador ? <SidebarCoordinador /> : <Sidebar />}
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Gestión de Entrenadores</h1>
             <p className="text-sm text-gray-500 mt-0.5">Administra los entrenadores del club</p>
           </div>
-          <button className="bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
-            + Agregar entrenador
-          </button>
+          {esAdmin && (
+            <button className="bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
+              + Agregar entrenador
+            </button>
+          )}
         </div>
 
         <div className="p-6">
@@ -53,15 +67,18 @@ export default function Entrenadores() {
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Cargo</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Celular</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Emergencia</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">F.Inicio</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">F.Fin</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Evaluación</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Certificado</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan={9} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
+                  <tr><td colSpan={12} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
                 ) : filtrados.length === 0 ? (
-                  <tr><td colSpan={9} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
+                  <tr><td colSpan={12} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
                 ) : (
                   filtrados.map((e, i) => (
                     <tr key={e.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
@@ -72,6 +89,27 @@ export default function Entrenadores() {
                       <td className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
                       <td className="text-gray-600 text-sm px-4 py-4">{e.celular}</td>
                       <td className="text-gray-600 text-sm px-4 py-4">{e.contactoEmergencia || "-"}</td>
+                      <td className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaInicio)}</td>
+                      <td className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaFin)}</td>
+                      <td className="px-4 py-4">
+                        {e.evaluacion ? (
+                          <div className="flex items-center gap-2">
+                            <a
+                              href={e.evaluacion}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-club-blue text-xs hover:underline font-medium"
+                            >
+                              Ver
+                            </a>
+                            {esAdmin && (
+                              <button className="text-club-red text-xs hover:underline">Eliminar</button>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-gray-400 text-xs">-</span>
+                        )}
+                      </td>
                       <td className="px-4 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           e.certificado === "vigente"
@@ -82,9 +120,11 @@ export default function Entrenadores() {
                         </span>
                       </td>
                       <td className="px-4 py-4">
-                        <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">
-                          Editar
-                        </button>
+                        {esAdmin && (
+                          <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">
+                            Editar
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))

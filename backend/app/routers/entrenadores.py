@@ -29,10 +29,13 @@ async def crear(
     email: Optional[str] = Form(None),
     coced: Optional[str] = Form(None),
     contactoEmergencia: Optional[str] = Form(None),
+    fechaInicio: Optional[str] = Form(None),
+    fechaFin: Optional[str] = Form(None),
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
     certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
+    evaluacion: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
     datos = {
@@ -43,7 +46,9 @@ async def crear(
         "cargo": cargo,
         "email": email,
         "coced": coced,
-        "contactoEmergencia": contactoEmergencia
+        "contactoEmergencia": contactoEmergencia,
+        "fechaInicio": fechaInicio,
+        "fechaFin": fechaFin
     }
 
     if certificado:
@@ -70,6 +75,12 @@ async def crear(
             await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
         )
 
+    if evaluacion:
+        nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
+        datos["evaluacion"] = subir_archivo(
+            await evaluacion.read(), nombre_archivo, "evaluaciones"
+        )
+
     obj = Entrenador(**datos)
     db.add(obj)
     db.commit()
@@ -87,10 +98,13 @@ async def actualizar(
     email: Optional[str] = Form(None),
     coced: Optional[str] = Form(None),
     contactoEmergencia: Optional[str] = Form(None),
+    fechaInicio: Optional[str] = Form(None),
+    fechaFin: Optional[str] = Form(None),
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
     certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
+    evaluacion: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db)
 ):
     obj = db.query(Entrenador).filter(Entrenador.id == id).first()
@@ -105,6 +119,8 @@ async def actualizar(
     if email: obj.email = email
     if coced: obj.coced = coced
     if contactoEmergencia: obj.contactoEmergencia = contactoEmergencia
+    if fechaInicio: obj.fechaInicio = fechaInicio
+    if fechaFin: obj.fechaFin = fechaFin
 
     if certificado:
         nombre_archivo = f"{uuid.uuid4()}_{certificado.filename}"
@@ -125,6 +141,12 @@ async def actualizar(
         nombre_archivo = f"{uuid.uuid4()}_{certificadoPrimerCorrespondiente.filename}"
         obj.certificadoPrimerCorrespondiente = subir_archivo(
             await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
+        )
+
+    if evaluacion:
+        nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
+        obj.evaluacion = subir_archivo(
+            await evaluacion.read(), nombre_archivo, "evaluaciones"
         )
 
     db.commit()

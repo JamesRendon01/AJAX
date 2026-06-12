@@ -19,6 +19,8 @@ export default function Login() {
       const usuario = await authService.login(form);
       if (usuario.rol === "admin") {
         window.location.href = "/dashboard";
+      } else if (usuario.rol === "coordinador") {
+        window.location.href = "/coordinador/dashboard";
       } else {
         window.location.href = "/entrenador/dashboard";
       }

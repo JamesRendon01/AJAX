@@ -9,10 +9,11 @@ import Grupos from "../pages/grupos/Grupos";
 import DashboardEntrenador from "../pages/entrenadores/DashboardEntrenador";
 import AsistenciasEntrenador from "../pages/entrenadores/Asistencias";
 import AsistenciasAdmin from "../pages/asistencias/AsistenciasAdmin";
-import Planeaciones from "../pages/entrenadores/Planeaciones";
+import PlaneacionesEntrenador from "../pages/entrenadores/Planeaciones";
 import PlaneacionesAdmin from "../pages/planeaciones/Planeaciones";
 import Jugadores from "../pages/jugadores/Jugadores";
 import MisJugadores from "../pages/entrenadores/MisJugadores";
+import DashboardCoordinador from "../pages/coordinador/DashboardCoordinador";
 
 function PrivateRoute({ children }) {
   if (!authService.isAuthenticated()) return <Navigate to="/login" replace />;
@@ -38,9 +39,13 @@ export default function AppRouter() {
         <Route path="/planeaciones" element={<PrivateRoute><PlaneacionesAdmin /></PrivateRoute>} />
         <Route path="/entrenador/dashboard" element={<PrivateRoute><DashboardEntrenador /></PrivateRoute>} />
         <Route path="/entrenador/asistencias" element={<PrivateRoute><AsistenciasEntrenador /></PrivateRoute>} />
-        <Route path="/entrenador/planeaciones" element={<PrivateRoute><Planeaciones /></PrivateRoute>} />
+        <Route path="/entrenador/planeaciones" element={<PrivateRoute><PlaneacionesEntrenador /></PrivateRoute>} />
         <Route path="/jugadores" element={<PrivateRoute><Jugadores /></PrivateRoute>} />
         <Route path="/entrenador/jugadores" element={<PrivateRoute><MisJugadores /></PrivateRoute>} />
+        <Route path="/coordinador/dashboard" element={<PrivateRoute><DashboardCoordinador /></PrivateRoute>} />
+        <Route path="/coordinador/planeaciones" element={<PrivateRoute><PlaneacionesAdmin /></PrivateRoute>} />
+        <Route path="/coordinador/jugadores" element={<PrivateRoute><Jugadores /></PrivateRoute>} />
+        <Route path="/coordinador/entrenadores" element={<PrivateRoute><Entrenadores /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>

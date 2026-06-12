@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Date
 from sqlalchemy.orm import relationship
 from app.models.base import Base
 
@@ -22,6 +22,9 @@ class Entrenador(Base):
     rol                              = Column(String, default="entrenador")
     coced                            = Column(String, nullable=True)
     contactoEmergencia               = Column(String, nullable=True)
+    fechaInicio                      = Column(Date, nullable=True)
+    fechaFin                         = Column(Date, nullable=True)
+    evaluacion                       = Column(String, nullable=True)
 
     categorias  = relationship("Categoria", back_populates="entrenador")
     asistencias = relationship("Asistencia", back_populates="entrenador")
