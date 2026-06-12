@@ -43,8 +43,8 @@ export default function Login() {
             alt="Club Deportivo"
             className="w-24 h-24 object-contain mb-4"
           />
-          <h1 className="text-2xl font-bold text-club-blue">Club Deportivo</h1>
-          <p className="text-gray-500 text-sm mt-1">Sistema de Gestión Deportiva</p>
+          <h1 className="text-2xl font-bold text-club-blue">CLUB DEPORTIVO AJAX</h1>
+          <p className="text-gray-500 text-sm mt-1">Sistema de Gestión Administrativa y Deportiva</p>
         </div>
 
         <div className="mb-5">
