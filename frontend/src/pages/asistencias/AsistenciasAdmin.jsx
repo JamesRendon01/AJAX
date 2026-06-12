@@ -3,6 +3,7 @@ import Sidebar from "../../components/layout/Sidebar";
 import asistenciaService from "../../services/asistenciaAdminService";
 import api from "../../services/api";
 import { FileText } from "lucide-react";
+import usePageTitle from "../../hooks/usePageTitle";
 
 function Badge({ children, color }) {
   const colors = {
@@ -23,6 +24,7 @@ function Badge({ children, color }) {
 }
 
 export default function AsistenciasAdmin() {
+  usePageTitle("Asistencias");
   const [asistencias, setAsistencias] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [entrenadores, setEntrenadores] = useState([]);
@@ -124,13 +126,13 @@ export default function AsistenciasAdmin() {
 
   if (loading)
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-club-dark">
         <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
       </div>
     );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">

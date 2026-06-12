@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
 import { mockJugadores, mockEntrenadorActual } from "../../mock/data";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function MisJugadores() {
+  usePageTitle("Mis Jugadores");
   const [jugadores, setJugadores] = useState([]);
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
   const [nacFiltro, setNacFiltro] = useState("todas");
@@ -24,7 +26,7 @@ export default function MisJugadores() {
   const inactivos = jugadores.filter((j) => j.estado === "inactivo").length;
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">

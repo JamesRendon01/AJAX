@@ -1,8 +1,10 @@
 import { useState } from "react";
 import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
 import { mockAsistencias } from "../../mock/data";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function Asistencias() {
+  usePageTitle("Asistencias Entrenador");
   const [nombre, setNombre] = useState("");
   const [archivo, setArchivo] = useState(null);
   const [dragging, setDragging] = useState(false);
@@ -14,7 +16,7 @@ export default function Asistencias() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 border-b border-gray-200 shadow-sm">

@@ -3,6 +3,7 @@ import Sidebar from "../../components/layout/Sidebar";
 import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import authService from "../../services/authService";
 import { mockJugadores } from "../../mock/data";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const grupoColor = { ROJO: "bg-red-50 text-red-700 border-red-200", AZUL: "bg-blue-50 text-blue-700 border-blue-200", BLANCO: "bg-gray-100 text-gray-600 border-gray-200" };
 
@@ -11,6 +12,7 @@ function getBadgeColor(grupo) {
 }
 
 export default function Jugadores() {
+  usePageTitle("Jugadores");
   const [jugadores, setJugadores] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [grupoFiltro, setGrupoFiltro] = useState("todas");
@@ -43,7 +45,7 @@ export default function Jugadores() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       {rol === "coordinador" ? <SidebarCoordinador /> : <Sidebar />}
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">

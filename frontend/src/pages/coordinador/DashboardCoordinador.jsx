@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import api from "../../services/api";
 import { Users, Calendar, User } from "lucide-react";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function DashboardCoordinador() {
+  usePageTitle("Dashboard Coordinador");
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function DashboardCoordinador() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarCoordinador />
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 border-b border-gray-200 shadow-sm">

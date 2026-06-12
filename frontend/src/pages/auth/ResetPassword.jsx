@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Loader } from "lucide-react";
 import api from "../../services/api";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function ResetPassword() {
+  usePageTitle("Restablecer Contraseña");
   const { token } = useParams();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

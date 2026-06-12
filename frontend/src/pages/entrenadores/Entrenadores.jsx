@@ -3,8 +3,10 @@ import Sidebar from "../../components/layout/Sidebar";
 import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import entrenadorService from "../../services/entrenadorService";
 import authService from "../../services/authService";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function Entrenadores() {
+  usePageTitle("Entrenadores");
   const [entrenadores, setEntrenadores] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(true);
@@ -32,7 +34,7 @@ export default function Entrenadores() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       {esCoordinador ? <SidebarCoordinador /> : <Sidebar />}
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">

@@ -4,6 +4,7 @@ import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import authService from "../../services/authService";
 import planeacionService from "../../services/planeacionService";
 import api from "../../services/api";
+import usePageTitle from "../../hooks/usePageTitle";
 
 function Badge({ children, color }) {
   const colors = {
@@ -26,6 +27,7 @@ function Badge({ children, color }) {
 }
 
 export default function Planeaciones() {
+  usePageTitle("Planeaciones");
   const [planeaciones, setPlaneaciones] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [entrenadores, setEntrenadores] = useState([]);
@@ -168,7 +170,7 @@ export default function Planeaciones() {
 
   if (loading)
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-club-dark">
         <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
       </div>
     );
@@ -176,7 +178,7 @@ export default function Planeaciones() {
   const SidebarComponent = rol === "coordinador" ? SidebarCoordinador : Sidebar;
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarComponent />
 
       <div className="flex-1 flex flex-col">

@@ -7,3 +7,8 @@
   --color-club-red-light: #ef4444;
   --color-club-white: #ffffff;
 }
+
+.bg-club-dark {
+  background: linear-gradient(135deg, #1a2d3d 0%, #3a2830 50%, #3d1517 100%);
+  background-attachment: fixed;
+}

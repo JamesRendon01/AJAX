@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import dashboardService from "../../services/dashboardService";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const StatCard = ({ label, value, color = "text-club-blue" }) => (
   <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
@@ -10,6 +11,7 @@ const StatCard = ({ label, value, color = "text-club-blue" }) => (
 );
 
 export default function Dashboard() {
+  usePageTitle("Dashboard");
   const [stats, setStats] = useState(null);
   const [entrenadores, setEntrenadores] = useState([]);
   const [jugadoresCat, setJugadoresCat] = useState([]);
@@ -39,13 +41,13 @@ export default function Dashboard() {
     : 1;
 
   if (loading) return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-club-dark">
       <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
     </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">

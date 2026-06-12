@@ -3,6 +3,7 @@ import Sidebar from "../../components/layout/Sidebar";
 import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import authService from "../../services/authService";
 import { mockGrupos } from "../../mock/data";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const colorMap = {
   ROJO: "bg-red-50 text-red-700 border-red-200",
@@ -30,6 +31,7 @@ const formatDate = (date) => {
 };
 
 export default function Grupos() {
+  usePageTitle("Grupos");
   const [grupos, setGrupos] = useState([]);
   const [anioFiltro, setAnioFiltro] = useState("todos");
   const [editandoId, setEditandoId] = useState(null);
@@ -63,7 +65,7 @@ export default function Grupos() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarComponent />
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">

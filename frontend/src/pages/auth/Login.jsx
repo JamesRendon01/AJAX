@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Eye, EyeOff, AlertCircle } from "lucide-react";
 import authService from "../../services/authService";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function Login() {
+  usePageTitle("Iniciar Sesión");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

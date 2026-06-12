@@ -1,12 +1,14 @@
 import { mockEntrenadorActual, mockAsistencias, mockPlaneaciones } from "../../mock/data";
 import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function DashboardEntrenador() {
+  usePageTitle("Dashboard Entrenador");
   const e = mockEntrenadorActual;
   const fecha = new Date().toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "short", year: "numeric" });
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
       <div className="flex-1 flex flex-col">
         <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">

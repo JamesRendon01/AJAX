@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Mail, ArrowLeft, CheckCircle, AlertCircle } from "lucide-react";
 import api from "../../services/api";
+import usePageTitle from "../../hooks/usePageTitle";
 
 export default function ForgotPassword() {
+  usePageTitle("Recuperar Contraseña");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
