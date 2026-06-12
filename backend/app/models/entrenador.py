@@ -20,6 +20,8 @@ class Entrenador(Base):
     celular                          = Column(String)
     cargo                            = Column(String)
     rol                              = Column(String, default="entrenador")
+    coced                            = Column(String, nullable=True)
+    contactoEmergencia               = Column(String, nullable=True)
 
     categorias  = relationship("Categoria", back_populates="entrenador")
     asistencias = relationship("Asistencia", back_populates="entrenador")

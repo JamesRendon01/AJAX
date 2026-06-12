@@ -26,6 +26,9 @@ async def crear(
     documento: Optional[str] = Form(None),
     celular: Optional[str] = Form(None),
     cargo: Optional[str] = Form(None),
+    email: Optional[str] = Form(None),
+    coced: Optional[str] = Form(None),
+    contactoEmergencia: Optional[str] = Form(None),
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
@@ -37,7 +40,10 @@ async def crear(
         "tipoDocumento": tipoDocumento,
         "documento": documento,
         "celular": celular,
-        "cargo": cargo
+        "cargo": cargo,
+        "email": email,
+        "coced": coced,
+        "contactoEmergencia": contactoEmergencia
     }
 
     if certificado:
@@ -78,6 +84,9 @@ async def actualizar(
     documento: Optional[str] = Form(None),
     celular: Optional[str] = Form(None),
     cargo: Optional[str] = Form(None),
+    email: Optional[str] = Form(None),
+    coced: Optional[str] = Form(None),
+    contactoEmergencia: Optional[str] = Form(None),
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
@@ -93,6 +102,9 @@ async def actualizar(
     if documento: obj.documento = documento
     if celular: obj.celular = celular
     if cargo: obj.cargo = cargo
+    if email: obj.email = email
+    if coced: obj.coced = coced
+    if contactoEmergencia: obj.contactoEmergencia = contactoEmergencia
 
     if certificado:
         nombre_archivo = f"{uuid.uuid4()}_{certificado.filename}"

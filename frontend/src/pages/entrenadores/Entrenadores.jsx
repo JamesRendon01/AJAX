@@ -48,24 +48,30 @@ export default function Entrenadores() {
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Nombre</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Documento</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Email</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">COCED</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Cargo</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Celular</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Emergencia</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Certificado</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan={6} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
+                  <tr><td colSpan={9} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
                 ) : filtrados.length === 0 ? (
-                  <tr><td colSpan={6} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
+                  <tr><td colSpan={9} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
                 ) : (
                   filtrados.map((e, i) => (
                     <tr key={e.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
                       <td className="text-gray-800 text-sm px-4 py-4 font-medium">{e.nombre}</td>
                       <td className="text-gray-600 text-sm px-4 py-4">{e.documento}</td>
+                      <td className="text-gray-600 text-sm px-4 py-4">{e.email || "-"}</td>
+                      <td className="text-gray-600 text-sm px-4 py-4">{e.coced || "-"}</td>
                       <td className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
                       <td className="text-gray-600 text-sm px-4 py-4">{e.celular}</td>
+                      <td className="text-gray-600 text-sm px-4 py-4">{e.contactoEmergencia || "-"}</td>
                       <td className="px-4 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           e.certificado === "vigente"
