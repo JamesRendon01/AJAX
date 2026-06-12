@@ -13,7 +13,7 @@ const navItems = [
 export default function SidebarEntrenador() {
   const e = mockEntrenadorActual;
   return (
-    <aside className="w-64 bg-red-700 flex flex-col min-h-screen shadow-xl">
+    <aside className="w-64 bg-red-500 flex flex-col min-h-screen shadow-xl">
       <div className="px-5 py-6 border-b border-white/10">
         <div className="flex items-center gap-3">
           <img
@@ -23,7 +23,7 @@ export default function SidebarEntrenador() {
           />
           <div>
             <p className="text-white font-bold text-sm leading-tight">Club Deportivo</p>
-            <p className="text-red-200 text-xs mt-0.5">Panel Entrenador</p>
+            <p className="text-white/70 text-xs mt-0.5">Panel Entrenador</p>
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@ export default function SidebarEntrenador() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm mb-0.5 transition-all ${
                 isActive
-                  ? "bg-white text-red-800 font-semibold shadow-md"
-                  : "text-red-100 hover:bg-white/10 hover:text-white"
+                  ? "bg-white text-red-600 font-semibold shadow-md"
+                  : "text-white/80 hover:bg-white/10 hover:text-white"
               }`
             }
           >
@@ -49,7 +49,7 @@ export default function SidebarEntrenador() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-white text-sm font-medium truncate">{e.nombre}</p>
-            <button onClick={authService.logout} className="text-red-200 text-xs hover:text-white flex items-center gap-1 transition-colors">
+            <button onClick={authService.logout} className="text-white/70 text-xs hover:text-white flex items-center gap-1 transition-colors">
               <LogOut size={11} /> Cerrar sesión
             </button>
           </div>
