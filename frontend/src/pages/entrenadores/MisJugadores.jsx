@@ -28,7 +28,7 @@ export default function MisJugadores() {
   return (
     <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col pt-14 lg:pt-0">
         <div className="bg-white px-6 py-4 flex justify-between items-center flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Mis Deportistas</h1>
