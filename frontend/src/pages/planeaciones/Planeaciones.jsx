@@ -185,7 +185,7 @@ export default function Planeaciones() {
       <SidebarComponent />
 
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
+        <div className="bg-white px-6 py-4 flex justify-between items-start flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Planeaciones</h1>
             <p className="text-sm text-gray-500 mt-0.5">
@@ -204,8 +204,8 @@ export default function Planeaciones() {
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="p-4 lg:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <p className="text-gray-500 text-sm font-medium mb-1">Total</p>
               <p className="text-club-blue text-3xl font-bold">{total}</p>
@@ -264,7 +264,8 @@ export default function Planeaciones() {
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <table className="w-full border-collapse">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Nombre</th>
@@ -309,6 +310,7 @@ export default function Planeaciones() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
           <p className="text-xs text-gray-400 mt-3">Mostrando {total} de {total} planeaciones</p>
         </div>
@@ -316,7 +318,7 @@ export default function Planeaciones() {
 
       {modal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50" onClick={() => setModal(null)}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-full sm:max-w-lg mx-4 p-6" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-club-blue">{editando ? "Editar" : "Nueva"} planeación</h2>
               <button onClick={() => setModal(null)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>

@@ -42,8 +42,8 @@ export default function DashboardCoordinador() {
           <h1 className="text-xl font-bold text-club-blue">Dashboard Coordinador</h1>
           <p className="text-sm text-gray-500 mt-0.5">Panel de control del coordinador deportivo</p>
         </div>
-        <div className="p-6">
-          <div className="grid grid-cols-3 gap-6">
+        <div className="p-4 lg:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {cards.map(({ label, value, icon: Icon, color }) => (
               <div key={label} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 <div className="flex items-center gap-3 mb-4">

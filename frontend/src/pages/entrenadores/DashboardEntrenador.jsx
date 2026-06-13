@@ -11,7 +11,7 @@ export default function DashboardEntrenador() {
     <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
+        <div className="bg-white px-6 py-4 flex justify-between items-start flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Bienvenido, {e.nombre.split(" ")[0]}</h1>
             <p className="text-sm text-gray-500 mt-0.5">Resumen de tu actividad</p>
@@ -19,8 +19,8 @@ export default function DashboardEntrenador() {
           <p className="text-sm text-gray-500 capitalize">{fecha}</p>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="p-4 lg:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <p className="text-gray-500 text-sm font-medium mb-1">Mi grupo</p>
               <p className="text-club-blue text-2xl font-bold">{e.grupo}</p>
@@ -35,7 +35,7 @@ export default function DashboardEntrenador() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-gray-800 font-bold text-lg">Últimas asistencias</h2>

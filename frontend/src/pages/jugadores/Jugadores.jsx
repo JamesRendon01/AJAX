@@ -132,7 +132,7 @@ export default function Jugadores() {
     <div className="flex min-h-screen bg-club-dark">
       {rol === "coordinador" ? <SidebarCoordinador /> : <Sidebar />}
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-center border-b border-gray-200 shadow-sm">
+        <div className="bg-white px-6 py-4 flex justify-between items-center flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Deportistas</h1>
             <p className="text-sm text-gray-500 mt-0.5">Lista general de todos los deportistas del club</p>
@@ -140,8 +140,8 @@ export default function Jugadores() {
           <div className="flex gap-2"></div>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="p-4 lg:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <p className="text-gray-500 text-sm font-medium mb-1">Total</p>
               <p className="text-club-blue text-3xl font-bold">{jugadores.length}</p>
@@ -165,7 +165,8 @@ export default function Jugadores() {
             className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-club-blue focus:border-transparent" />
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <table className="w-full">
+            <div className="overflow-x-auto">
+              <table className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   {["Nombre", "Documento", "Grupo", "Dorsal", "Estado", "Devoluciones", "Acciones"].map((h) => (
@@ -207,6 +208,7 @@ export default function Jugadores() {
                 ))}
               </tbody>
             </table>
+            </div>
             <p className="text-gray-400 text-sm px-4 py-3 border-t border-gray-100">Mostrando {filtrados.length} de {jugadores.length} deportistas</p>
           </div>
         </div>
@@ -258,7 +260,7 @@ export default function Jugadores() {
 
       {modal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50" onClick={() => setModal(null)}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 p-6 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-full sm:max-w-2xl mx-2 sm:mx-4 p-6 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-club-blue">{editando ? "Editar" : "Nuevo"} deportista</h2>
               <button onClick={() => { setModal(null); setEditando(null); }} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>

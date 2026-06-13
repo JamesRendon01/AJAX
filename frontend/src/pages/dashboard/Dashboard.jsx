@@ -51,7 +51,7 @@ export default function Dashboard() {
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
+        <div className="bg-white px-6 py-4 flex justify-between items-start flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Dashboard</h1>
             <p className="text-sm text-gray-500 mt-0.5">Bienvenido, resumen general del sistema</p>
@@ -59,15 +59,15 @@ export default function Dashboard() {
           <p className="text-sm text-gray-500 capitalize">{fecha}</p>
         </div>
 
-        <div className="p-6 flex-1">
-          <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="p-4 lg:p-6 flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatCard label="Total entrenadores" value={stats.entrenadores} />
             <StatCard label="Total jugadores" value={stats.jugadores} color="text-club-red" />
             <StatCard label="Grupos activos" value={stats.grupos} />
             <StatCard label="Planeaciones este mes" value={stats.planeaciones} color="text-club-red" />
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
               <h2 className="text-gray-800 font-bold text-lg mb-4">Jugadores por grupo</h2>
               {jugadoresCat.map((g, i) => (

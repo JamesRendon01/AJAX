@@ -60,7 +60,7 @@ export default function Planeaciones() {
           <p className="text-sm text-gray-500 mt-0.5">Sube y gestiona las planeaciones de tu grupo</p>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 lg:p-6 space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-gray-800 font-bold text-lg mb-4">Subir nueva planeación</h2>
             <div className="mb-4">
@@ -111,7 +111,7 @@ export default function Planeaciones() {
                 <p className="text-gray-400 text-sm">No hay planeaciones registradas</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {planeaciones.map((p) => {
                   const fin = new Date(p.fechaFin);
                   const activa = fin >= hoy;

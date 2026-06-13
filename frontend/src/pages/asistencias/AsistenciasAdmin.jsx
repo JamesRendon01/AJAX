@@ -136,7 +136,7 @@ export default function AsistenciasAdmin() {
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        <div className="bg-white px-6 py-4 flex justify-between items-start border-b border-gray-200 shadow-sm">
+        <div className="bg-white px-6 py-4 flex justify-between items-start flex-col sm:flex-row border-b border-gray-200 shadow-sm">
           <div>
             <h1 className="text-xl font-bold text-club-blue">Asistencias</h1>
             <p className="text-sm text-gray-500 mt-0.5">
@@ -148,8 +148,8 @@ export default function AsistenciasAdmin() {
           </button>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="p-4 lg:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <p className="text-gray-500 text-sm font-medium mb-1">Total archivos</p>
               <p className="text-club-blue text-3xl font-bold">{total}</p>
@@ -209,7 +209,8 @@ export default function AsistenciasAdmin() {
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <table className="w-full border-collapse">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[22%]">Nombre archivo</th>
@@ -249,6 +250,7 @@ export default function AsistenciasAdmin() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
           <p className="text-xs text-gray-400 mt-3">Mostrando {total} de {total} registros</p>
         </div>
