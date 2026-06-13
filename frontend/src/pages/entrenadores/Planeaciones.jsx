@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
 import planeacionService from "../../services/planeacionService";
-import api from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
 
 export default function Planeaciones() {
   usePageTitle("Planeaciones Entrenador");
   const [planeaciones, setPlaneaciones] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [uploads, setUploads] = useState({});
+  const [dragging, setDragging] = useState(null);
+  const fileInputRef = useRef({});
 
   useEffect(() => {
     planeacionService.getAll().then((data) => {
@@ -26,6 +27,26 @@ export default function Planeaciones() {
 
   const hoy = new Date();
 
+  const handleFileSelect = (id, file) => {
+    setUploads((prev) => ({ ...prev, [id]: file }));
+  };
+
+  const handleUpload = async (p) => {
+    const file = uploads[p.id];
+    if (!file) return;
+    try {
+      await planeacionService.update(p.id, {
+        nombre: p.nombre,
+        archivo: file,
+      });
+      setUploads((prev) => ({ ...prev, [p.id]: undefined }));
+      const data = await planeacionService.getAll();
+      setPlaneaciones(data);
+    } catch (error) {
+      console.error("Error subiendo:", error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
@@ -35,16 +56,9 @@ export default function Planeaciones() {
             <h1 className="text-xl font-bold text-club-blue">Planeaciones</h1>
             <p className="text-sm text-gray-500 mt-0.5">Gestiona las planeaciones de tu grupo</p>
           </div>
-          <button className="bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
-            + Nueva planeación
-          </button>
         </div>
 
         <div className="p-6">
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">{error}</div>
-          )}
-
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin w-8 h-8 border-4 border-club-blue border-t-transparent rounded-full" />
@@ -60,6 +74,7 @@ export default function Planeaciones() {
                 const activa = fin >= hoy;
                 const fueraLapso = !p.lapsoInicio || !p.lapsoFin;
                 const enLapso = !fueraLapso && hoy >= new Date(p.lapsoInicio) && hoy <= new Date(p.lapsoFin);
+                const selectedFile = uploads[p.id];
 
                 return (
                   <div key={p.id} className={`bg-white rounded-xl shadow-sm border p-6 hover:shadow-md transition-shadow ${activa ? "border-club-blue/30 ring-1 ring-club-blue/20" : "border-gray-100"}`}>
@@ -98,16 +113,43 @@ export default function Planeaciones() {
                     )}
 
                     {p.archivo && (
-                      <div className="mb-3">
+                      <div className="mb-4">
                         <a href={p.archivo} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs font-medium hover:underline">
-                          Ver archivo
+                          Ver archivo actual
                         </a>
                       </div>
                     )}
 
-                    <div className="flex gap-2 pt-4 border-t border-gray-100">
-                      <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-sm px-4 py-2 rounded-lg transition-colors">Ver archivo</button>
-                    </div>
+                    {activa && enLapso && (
+                      <div className="border-t border-gray-100 pt-4">
+                        <div
+                          onDragOver={(e) => { e.preventDefault(); setDragging(p.id); }}
+                          onDragLeave={() => setDragging(null)}
+                          onDrop={(e) => { e.preventDefault(); setDragging(null); handleFileSelect(p.id, e.dataTransfer.files[0]); }}
+                          onClick={() => fileInputRef.current[p.id]?.click()}
+                          className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
+                            dragging === p.id ? "border-club-blue bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                          }`}>
+                          <svg className="mx-auto mb-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                          </svg>
+                          {selectedFile ? (
+                            <p className="text-green-600 text-sm font-medium">{selectedFile.name}</p>
+                          ) : (
+                            <p className="text-gray-500 text-sm">Arrastra tu archivo aquí o haz clic para seleccionar</p>
+                          )}
+                          <input type="file" className="hidden" accept=".pdf,.xlsx,.xls" ref={(el) => (fileInputRef.current[p.id] = el)} onChange={(e) => handleFileSelect(p.id, e.target.files[0])} />
+                        </div>
+                        {selectedFile && (
+                          <button onClick={() => handleUpload(p)}
+                            className="mt-3 w-full bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg">
+                            Subir archivo
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
