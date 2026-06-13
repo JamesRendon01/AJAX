@@ -56,30 +56,35 @@ async def crear(
         datos["certificado"] = subir_archivo(
             await certificado.read(), nombre_archivo, "certificados"
         )
+        datos["certificado_original"] = certificado.filename
 
     if delitosSexuales:
         nombre_archivo = f"{uuid.uuid4()}_{delitosSexuales.filename}"
         datos["delitosSexuales"] = subir_archivo(
             await delitosSexuales.read(), nombre_archivo, "delitos"
         )
+        datos["delitosSexuales_original"] = delitosSexuales.filename
 
     if tarjetaProfesional:
         nombre_archivo = f"{uuid.uuid4()}_{tarjetaProfesional.filename}"
         datos["tarjetaProfesional"] = subir_archivo(
             await tarjetaProfesional.read(), nombre_archivo, "tarjetas"
         )
+        datos["tarjetaProfesional_original"] = tarjetaProfesional.filename
 
     if certificadoPrimerCorrespondiente:
         nombre_archivo = f"{uuid.uuid4()}_{certificadoPrimerCorrespondiente.filename}"
         datos["certificadoPrimerCorrespondiente"] = subir_archivo(
             await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
         )
+        datos["certificadoPrimerCorrespondiente_original"] = certificadoPrimerCorrespondiente.filename
 
     if evaluacion:
         nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
         datos["evaluacion"] = subir_archivo(
             await evaluacion.read(), nombre_archivo, "evaluaciones"
         )
+        datos["evaluacion_original"] = evaluacion.filename
 
     obj = Entrenador(**datos)
     db.add(obj)
@@ -127,27 +132,32 @@ async def actualizar(
         obj.certificado = subir_archivo(
             await certificado.read(), nombre_archivo, "certificados"
         )
+        obj.certificado_original = certificado.filename
     if delitosSexuales:
         nombre_archivo = f"{uuid.uuid4()}_{delitosSexuales.filename}"
         obj.delitosSexuales = subir_archivo(
             await delitosSexuales.read(), nombre_archivo, "delitos"
         )
+        obj.delitosSexuales_original = delitosSexuales.filename
     if tarjetaProfesional:
         nombre_archivo = f"{uuid.uuid4()}_{tarjetaProfesional.filename}"
         obj.tarjetaProfesional = subir_archivo(
             await tarjetaProfesional.read(), nombre_archivo, "tarjetas"
         )
+        obj.tarjetaProfesional_original = tarjetaProfesional.filename
     if certificadoPrimerCorrespondiente:
         nombre_archivo = f"{uuid.uuid4()}_{certificadoPrimerCorrespondiente.filename}"
         obj.certificadoPrimerCorrespondiente = subir_archivo(
             await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
         )
+        obj.certificadoPrimerCorrespondiente_original = certificadoPrimerCorrespondiente.filename
 
     if evaluacion:
         nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
         obj.evaluacion = subir_archivo(
             await evaluacion.read(), nombre_archivo, "evaluaciones"
         )
+        obj.evaluacion_original = evaluacion.filename
 
     db.commit()
     db.refresh(obj)

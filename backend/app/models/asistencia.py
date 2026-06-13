@@ -10,6 +10,7 @@ class Asistencia(Base):
     fechaCreacion = Column(Date)
     fechaCargado  = Column(Date)
     archivo       = Column(String)
+    archivo_original = Column(String, nullable=True)
     idEntrenador  = Column(Integer, ForeignKey("entrenadores.id"))
     idCategoria   = Column(Integer, ForeignKey("categorias.id"))
 

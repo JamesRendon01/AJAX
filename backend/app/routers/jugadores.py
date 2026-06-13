@@ -92,16 +92,19 @@ async def crear(
         datos["devolucion1"] = subir_archivo(
             await devolucion1.read(), nombre_archivo, "jugadores"
         )
+        datos["devolucion1_original"] = devolucion1.filename
     if devolucion2:
         nombre_archivo = f"{uuid.uuid4()}_{devolucion2.filename}"
         datos["devolucion2"] = subir_archivo(
             await devolucion2.read(), nombre_archivo, "jugadores"
         )
+        datos["devolucion2_original"] = devolucion2.filename
     if devolucion3:
         nombre_archivo = f"{uuid.uuid4()}_{devolucion3.filename}"
         datos["devolucion3"] = subir_archivo(
             await devolucion3.read(), nombre_archivo, "jugadores"
         )
+        datos["devolucion3_original"] = devolucion3.filename
 
     if devoluciones:
         if idCategoria:
@@ -114,6 +117,7 @@ async def crear(
         datos["devoluciones"] = subir_archivo(
             await devoluciones.read(), nombre_archivo, "devoluciones"
         )
+        datos["devoluciones_original"] = devoluciones.filename
 
     obj = Jugador(**datos)
     db.add(obj)
@@ -179,16 +183,19 @@ async def actualizar(
         obj.devolucion1 = subir_archivo(
             await devolucion1.read(), nombre_archivo, "jugadores"
         )
+        obj.devolucion1_original = devolucion1.filename
     if devolucion2:
         nombre_archivo = f"{uuid.uuid4()}_{devolucion2.filename}"
         obj.devolucion2 = subir_archivo(
             await devolucion2.read(), nombre_archivo, "jugadores"
         )
+        obj.devolucion2_original = devolucion2.filename
     if devolucion3:
         nombre_archivo = f"{uuid.uuid4()}_{devolucion3.filename}"
         obj.devolucion3 = subir_archivo(
             await devolucion3.read(), nombre_archivo, "jugadores"
         )
+        obj.devolucion3_original = devolucion3.filename
 
     if devoluciones:
         cat = db.query(Categoria).filter(Categoria.id == obj.idCategoria).first()
@@ -200,6 +207,7 @@ async def actualizar(
         obj.devoluciones = subir_archivo(
             await devoluciones.read(), nombre_archivo, "devoluciones"
         )
+        obj.devoluciones_original = devoluciones.filename
 
     db.commit()
     db.refresh(obj)

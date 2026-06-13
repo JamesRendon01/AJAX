@@ -27,6 +27,10 @@ class Jugador(Base):
     devolucion3_fechaInicio = Column(Date, nullable=True)
     devolucion3_fechaFin    = Column(Date, nullable=True)
     devoluciones       = Column(String, nullable=True)
+    devolucion1_original = Column(String, nullable=True)
+    devolucion2_original = Column(String, nullable=True)
+    devolucion3_original = Column(String, nullable=True)
+    devoluciones_original = Column(String, nullable=True)
     torneo             = Column(String)
     idCategoria        = Column(Integer, ForeignKey("categorias.id"))
 

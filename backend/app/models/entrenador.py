@@ -25,6 +25,11 @@ class Entrenador(Base):
     fechaInicio                      = Column(Date, nullable=True)
     fechaFin                         = Column(Date, nullable=True)
     evaluacion                       = Column(String, nullable=True)
+    certificado_original             = Column(String, nullable=True)
+    delitosSexuales_original         = Column(String, nullable=True)
+    tarjetaProfesional_original      = Column(String, nullable=True)
+    certificadoPrimerCorrespondiente_original = Column(String, nullable=True)
+    evaluacion_original              = Column(String, nullable=True)
 
     categorias  = relationship("Categoria", back_populates="entrenador")
     asistencias = relationship("Asistencia", back_populates="entrenador")

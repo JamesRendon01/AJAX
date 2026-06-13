@@ -11,6 +11,7 @@ class Planeacion(Base):
     fechaFin    = Column(Date)
     fechaCarga  = Column(Date)
     archivo     = Column(String)
+    archivo_original = Column(String, nullable=True)
     idCategoria = Column(Integer, ForeignKey("categorias.id"))
     lapsoInicio = Column(Date, nullable=True)
     lapsoFin    = Column(Date, nullable=True)

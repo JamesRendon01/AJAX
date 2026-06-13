@@ -42,6 +42,7 @@ async def crear(
         datos["archivo"] = subir_archivo(
             await archivo.read(), nombre_archivo, "asistencias"
         )
+        datos["archivo_original"] = archivo.filename
 
     obj = Asistencia(**datos)
     db.add(obj)
@@ -75,6 +76,7 @@ async def actualizar(
         obj.archivo = subir_archivo(
             await archivo.read(), nombre_archivo, "asistencias"
         )
+        obj.archivo_original = archivo.filename
 
     db.commit()
     db.refresh(obj)
