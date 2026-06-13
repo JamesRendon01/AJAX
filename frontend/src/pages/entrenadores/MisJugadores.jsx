@@ -79,7 +79,7 @@ export default function MisJugadores() {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table data-responsive className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   {["Nombre", "Documento", "Nacionalidad", "Dorsal", "F. Ingreso", "Estado", "Acciones"].map((h) => (
@@ -88,14 +88,14 @@ export default function MisJugadores() {
                 </tr>
               </thead>
               <tbody>
-                {filtrados.map((j, i) => (
-                  <tr key={j.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                    <td className="text-gray-800 text-sm px-4 py-4 font-medium">{j.nombre}</td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.documento}</td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.nacionalidad}</td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.dorsal}</td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.fechaIngreso}</td>
-                    <td className="px-4 py-4">
+                {filtrados.map((j) => (
+                  <tr key={j.id} className="border-b border-gray-100 last:border-0">
+                    <td data-label="Nombre" className="text-gray-800 text-sm px-4 py-4 font-medium">{j.nombre}</td>
+                    <td data-label="Documento" className="text-gray-600 text-sm px-4 py-4">{j.documento}</td>
+                    <td data-label="Nacionalidad" className="text-gray-600 text-sm px-4 py-4">{j.nacionalidad}</td>
+                    <td data-label="Dorsal" className="text-gray-600 text-sm px-4 py-4">{j.dorsal}</td>
+                    <td data-label="F. Ingreso" className="text-gray-600 text-sm px-4 py-4">{j.fechaIngreso}</td>
+                    <td data-label="Estado" className="px-4 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium border ${
                         j.estado === "activo"
                           ? "bg-green-50 text-green-700 border-green-200"
@@ -104,7 +104,7 @@ export default function MisJugadores() {
                         {j.estado === "activo" ? "Activo" : "Inactivo"}
                       </span>
                     </td>
-                    <td className="px-4 py-4 flex gap-2">
+                    <td data-label="Acciones" className="px-4 py-4 flex gap-2">
                       <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">Ver</button>
                       <button className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">Editar</button>
                     </td>

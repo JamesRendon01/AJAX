@@ -166,7 +166,7 @@ export default function Jugadores() {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table data-responsive className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   {["Nombre", "Documento", "Grupo", "Dorsal", "Estado", "Devoluciones", "Acciones"].map((h) => (
@@ -175,17 +175,17 @@ export default function Jugadores() {
                 </tr>
               </thead>
               <tbody>
-                {filtrados.map((j, i) => (
-                  <tr key={j.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                    <td className="text-gray-800 text-sm px-4 py-4 font-medium">{j.nombre}</td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.documento}</td>
-                    <td className="px-4 py-4">
+                {filtrados.map((j) => (
+                  <tr key={j.id} className="border-b border-gray-100 last:border-0">
+                    <td data-label="Nombre" className="text-gray-800 text-sm px-4 py-4 font-medium">{j.nombre}</td>
+                    <td data-label="Documento" className="text-gray-600 text-sm px-4 py-4">{j.documento}</td>
+                    <td data-label="Grupo" className="px-4 py-4">
                       <span className="text-xs font-semibold px-2 py-1 rounded-md border bg-blue-50 text-blue-700 border-blue-200">
                         {getCategoriaNombre(j.idCategoria)}
                       </span>
                     </td>
-                    <td className="text-gray-600 text-sm px-4 py-4">{j.dorsal || "-"}</td>
-                    <td className="px-4 py-4">
+                    <td data-label="Dorsal" className="text-gray-600 text-sm px-4 py-4">{j.dorsal || "-"}</td>
+                    <td data-label="Estado" className="px-4 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium border ${
                         j.estado === "activo"
                           ? "bg-green-50 text-green-700 border-green-200"
@@ -194,13 +194,13 @@ export default function Jugadores() {
                         {j.estado === "activo" ? "Activo" : j.estado || "Inactivo"}
                       </span>
                     </td>
-                    <td className="px-4 py-4">
+                    <td data-label="Devoluciones" className="px-4 py-4">
                       <button onClick={() => setDetalleId(detalleId === j.id ? null : j.id)}
                         className="text-club-blue text-xs font-medium hover:underline">
                         {devolucionesCount(j)} devolucione{devolucionesCount(j) !== 1 ? "s" : ""}
                       </button>
                     </td>
-                    <td className="px-4 py-4 flex gap-1">
+                    <td data-label="Acciones" className="px-4 py-4 flex gap-1">
                       <button onClick={() => abrirEditar(j)} className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">Editar</button>
                       <button onClick={() => eliminar(j.id)} className="border border-red-200 text-club-red text-xs px-3 py-1.5 rounded-md hover:bg-red-50 transition-colors">Eliminar</button>
                     </td>

@@ -127,7 +127,7 @@ export default function Entrenadores() {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table data-responsive className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Nombre</th>
@@ -148,26 +148,26 @@ export default function Entrenadores() {
                 ) : filtrados.length === 0 ? (
                   <tr><td colSpan={10} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
                 ) : (
-                  filtrados.map((e, i) => (
-                    <tr key={e.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                      <td className="text-gray-800 text-sm px-4 py-4 font-medium">{e.nombre}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{e.documento}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{e.email || "-"}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{e.coced || "-"}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{e.celular}</td>
-                      <td className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaInicio)}</td>
-                      <td className="px-4 py-4">
+                  filtrados.map((e) => (
+                    <tr key={e.id} className="border-b border-gray-100 last:border-0">
+                      <td data-label="Nombre" className="text-gray-800 text-sm px-4 py-4 font-medium">{e.nombre}</td>
+                      <td data-label="Documento" className="text-gray-600 text-sm px-4 py-4">{e.documento}</td>
+                      <td data-label="Email" className="text-gray-600 text-sm px-4 py-4">{e.email || "-"}</td>
+                      <td data-label="COCED" className="text-gray-600 text-sm px-4 py-4">{e.coced || "-"}</td>
+                      <td data-label="Cargo" className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
+                      <td data-label="Celular" className="text-gray-600 text-sm px-4 py-4">{e.celular}</td>
+                      <td data-label="F.Inicio" className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaInicio)}</td>
+                      <td data-label="Evaluación" className="px-4 py-4">
                         {e.evaluacion ? (
                           <a href={e.evaluacion} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>
                         ) : <span className="text-gray-400 text-xs">-</span>}
                       </td>
-                      <td className="px-4 py-4">
+                      <td data-label="Certificado" className="px-4 py-4">
                         {e.certificado ? (
                           <a href={e.certificado} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>
                         ) : <span className="text-gray-400 text-xs">-</span>}
                       </td>
-                      <td className="px-4 py-4 flex gap-1">
+                      <td data-label="Acciones" className="px-4 py-4 flex gap-1">
                         <button onClick={() => abrirEditar(e)} className="border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs px-3 py-1.5 rounded-md transition-colors">Editar</button>
                         {esAdmin && (
                           <button onClick={() => eliminar(e.id)} className="border border-red-200 text-club-red text-xs px-3 py-1.5 rounded-md hover:bg-red-50 transition-colors">Eliminar</button>

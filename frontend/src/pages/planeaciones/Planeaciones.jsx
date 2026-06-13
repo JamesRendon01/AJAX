@@ -265,7 +265,7 @@ export default function Planeaciones() {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table data-responsive className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Nombre</th>
@@ -281,26 +281,26 @@ export default function Planeaciones() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((p, i) => (
-                  <tr key={p.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                    <td className="px-4 py-3 text-sm text-gray-800">{p.nombre}</td>
-                    <td className="px-4 py-3">
+                {filtered.map((p) => (
+                  <tr key={p.id} className="border-b border-gray-100 last:border-0">
+                    <td data-label="Nombre" className="px-4 py-3 text-sm text-gray-800">{p.nombre}</td>
+                    <td data-label="Grupo" className="px-4 py-3">
                       <Badge color={getCategoriaColor(p.idCategoria)}>
                         {getCategoriaNombre(p.idCategoria)}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{getEntrenadorNombre(p.idCategoria)}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.fechaInicio)}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.fechaFin)}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoInicio)}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoFin)}</td>
-                    <td className="px-4 py-3 text-sm">
+                    <td data-label="Entrenador" className="px-4 py-3 text-sm text-gray-600">{getEntrenadorNombre(p.idCategoria)}</td>
+                    <td data-label="Inicio" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.fechaInicio)}</td>
+                    <td data-label="Fin" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.fechaFin)}</td>
+                    <td data-label="Lapso inicio" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoInicio)}</td>
+                    <td data-label="Lapso fin" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoFin)}</td>
+                    <td data-label="Archivo" className="px-4 py-3 text-sm">
                       {p.archivo ? <a href={p.archivo} target="_blank" className="text-club-blue underline hover:text-blue-800">Ver archivo</a> : <span className="text-gray-400">-</span>}
                     </td>
-                    <td className="px-4 py-3">
+                    <td data-label="Estado" className="px-4 py-3">
                       <Badge color={getEstado(p)}>{getEstado(p)}</Badge>
                     </td>
-                    <td className="px-4 py-3 flex gap-1">
+                    <td data-label="Acciones" className="px-4 py-3 flex gap-1">
                       {esAdminOCoordinador && (
                         <button onClick={() => abrirEditar(p)} className="px-3 py-1.5 border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs rounded-md transition-colors">Editar</button>
                       )}

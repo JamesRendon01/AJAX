@@ -210,39 +210,39 @@ export default function AsistenciasAdmin() {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table data-responsive className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[22%]">Nombre archivo</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Grupo</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[18%]">Entrenador</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Fecha carga</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[16%]">Fecha creación</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider w-[12%]">Acciones</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Nombre archivo</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Grupo</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Entrenador</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Fecha carga</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Fecha creación</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((a, i) => (
-                  <tr key={a.id} className={`border-b border-gray-100 last:border-0 ${i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                    <td className="px-4 py-3 text-sm text-gray-800 flex items-center gap-2">
+                {filtered.map((a) => (
+                  <tr key={a.id} className="border-b border-gray-100 last:border-0">
+                    <td data-label="Nombre archivo" className="px-4 py-3 text-sm text-gray-800 flex items-center gap-2">
                       <FileText size={14} className="text-club-blue" />
                       {a.nombre}
                     </td>
-                    <td className="px-4 py-3">
+                    <td data-label="Grupo" className="px-4 py-3">
                       <Badge color={getCategoriaColor(a.idCategoria)}>
                         {getCategoriaNombre(a.idCategoria)}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td data-label="Entrenador" className="px-4 py-3 text-sm text-gray-600">
                       {getEntrenadorNombreByCategoria(a.idCategoria)}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td data-label="Fecha carga" className="px-4 py-3 text-sm text-gray-600">
                       {formatDate(a.fechaCargado)}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td data-label="Fecha creación" className="px-4 py-3 text-sm text-gray-600">
                       {formatDate(a.fechaCreacion)}
                     </td>
-                    <td className="px-4 py-3 flex gap-1">
+                    <td data-label="Acciones" className="px-4 py-3 flex gap-1">
                       <button className="px-3 py-1.5 border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs rounded-md transition-colors">Ver</button>
                       <button onClick={() => eliminar(a.id)} className="px-3 py-1.5 border border-red-200 text-club-red text-xs rounded-md hover:bg-red-50 transition-colors">Eliminar</button>
                     </td>
