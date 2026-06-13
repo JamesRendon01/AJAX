@@ -19,8 +19,28 @@ services:
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: "30"
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dmjjy7xjm
+      - key: RESEND_FROM
+        value: onboarding@resend.dev
+      - key: FRONTEND_URL
+        value: https://ajax-liart.vercel.app
+      - key: RESET_TOKEN_EXPIRE_HOURS
+        value: "1"
       - key: STORAGE_BUCKET
         value: ajax-uploads
+
+      # ═══════════════════════════════════════════════════════════════
+      # VARIABLES SENSIBLES - Configurar en Render Dashboard
+      # ═══════════════════════════════════════════════════════════════
+      # Estas variables NO deben estar en el repositorio.
+      # Configúralas manualmente en:
+      #   Render Dashboard > ajax-api > Environment > Environment Variables
+      #
+      #   CLOUDINARY_API_KEY     →  Tu API Key de Cloudinary
+      #   CLOUDINARY_API_SECRET  →  Tu API Secret de Cloudinary
+      #   RESEND_API_KEY         →  Tu API Key de Resend
+      # ═══════════════════════════════════════════════════════════════
 
 databases:
   - name: ajax-db
