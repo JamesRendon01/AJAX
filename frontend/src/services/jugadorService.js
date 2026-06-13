@@ -1,13 +1,13 @@
 import api from "./api";
 
-const entrenadorService = {
+const jugadorService = {
   getAll: async () => {
-    const response = await api.get("/entrenadores/");
+    const response = await api.get("/jugadores/");
     return response.data;
   },
 
   getById: async (id) => {
-    const response = await api.get(`/entrenadores/${id}`);
+    const response = await api.get(`/jugadores/${id}`);
     return response.data;
   },
 
@@ -15,15 +15,14 @@ const entrenadorService = {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
-        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional", "certificadoPrimerCorrespondiente", "evaluacion"].includes(key);
-        if (isFile) {
+        if (key === "devolucion1" || key === "devolucion2" || key === "devolucion3" || key === "devoluciones") {
           if (data[key] instanceof File) formData.append(key, data[key]);
         } else {
           formData.append(key, data[key]);
         }
       }
     });
-    const response = await api.post("/entrenadores/", formData, {
+    const response = await api.post("/jugadores/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
@@ -33,23 +32,22 @@ const entrenadorService = {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
-        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional", "certificadoPrimerCorrespondiente", "evaluacion"].includes(key);
-        if (isFile) {
+        if (key === "devolucion1" || key === "devolucion2" || key === "devolucion3" || key === "devoluciones") {
           if (data[key] instanceof File) formData.append(key, data[key]);
         } else {
           formData.append(key, data[key]);
         }
       }
     });
-    const response = await api.put(`/entrenadores/${id}`, formData, {
+    const response = await api.put(`/jugadores/${id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
   },
 
   delete: async (id) => {
-    await api.delete(`/entrenadores/${id}`);
+    await api.delete(`/jugadores/${id}`);
   },
 };
 
-export default entrenadorService;
+export default jugadorService;
