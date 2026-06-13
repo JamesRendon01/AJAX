@@ -55,7 +55,7 @@ export default function Asistencias() {
           <p className="text-sm text-gray-500 mt-0.5">Sube y gestiona los archivos de asistencia</p>
         </div>
 
-        <div className="p-4 lg:p-6 space-y-6">
+        <div className="p-4 lg:p-6 space-y-6 flex-1">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-gray-800 font-bold text-lg mb-4">Subir nueva asistencia</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

@@ -120,7 +120,7 @@ export default function Entrenadores() {
           )}
         </div>
 
-        <div className="p-4 lg:p-6">
+        <div className="p-4 lg:p-6 flex-1">
           <input type="text" placeholder="Buscar entrenador por nombre o documento"
             value={busqueda} onChange={(e) => setBusqueda(e.target.value)}
             className="w-full border border-gray-200 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-club-blue focus:border-transparent" />

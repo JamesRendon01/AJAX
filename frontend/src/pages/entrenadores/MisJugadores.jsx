@@ -46,7 +46,7 @@ export default function MisJugadores() {
           </div>
         </div>
 
-        <div className="p-4 lg:p-6">
+        <div className="p-4 lg:p-6 flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <p className="text-gray-500 text-sm font-medium mb-1">Total equipo</p>
@@ -62,7 +62,7 @@ export default function MisJugadores() {
             </div>
           </div>
 
-          <div className="flex gap-3 mb-6">
+          <div className="flex gap-3 mb-6 flex-wrap">
             <select value={estadoFiltro} onChange={(e) => setEstadoFiltro(e.target.value)}
               className="border border-gray-200 bg-white text-gray-600 text-sm px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-club-blue">
               <option value="todos">Todos los estados</option>
