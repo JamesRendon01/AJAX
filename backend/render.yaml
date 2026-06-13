@@ -8,9 +8,9 @@ services:
     envVars:
       - key: DATABASE_URL
         sync: false
-      - key: SUPABASE_URL
+      - key: CLOUDINARY_CLOUD_NAME
         sync: false
-      - key: SUPABASE_KEY
+      - key: CLOUDINARY_API_KEY
         sync: false
-      - key: STORAGE_BUCKET
+      - key: CLOUDINARY_API_SECRET
         sync: false
