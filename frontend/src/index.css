@@ -8,7 +8,11 @@
   --color-club-white: #ffffff;
 }
 
+html, body, #root {
+  min-height: 100%;
+}
+
 .bg-club-dark {
   background: linear-gradient(135deg, #1e3a8a 0%, #3b5688 35%, #6b4a5a 65%, #b91c1c 100%);
-  background-attachment: fixed;
+  background-attachment: scroll;
 }

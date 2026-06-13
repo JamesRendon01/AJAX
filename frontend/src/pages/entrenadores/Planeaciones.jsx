@@ -54,7 +54,7 @@ export default function Planeaciones() {
   return (
     <div className="flex min-h-screen bg-club-dark">
       <SidebarEntrenador />
-      <div className="flex-1 flex flex-col pt-14 lg:pt-0">
+      <div className="flex-1 min-h-screen flex flex-col pt-14 lg:pt-0">
         <div className="bg-white px-6 py-4 border-b border-gray-200 shadow-sm">
           <h1 className="text-xl font-bold text-club-blue">Planeaciones</h1>
           <p className="text-sm text-gray-500 mt-0.5">Sube y gestiona las planeaciones de tu grupo</p>

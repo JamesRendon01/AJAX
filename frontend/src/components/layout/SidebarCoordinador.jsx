@@ -34,7 +34,7 @@ export default function SidebarCoordinador() {
 
       <aside
         className={`
-          w-64 bg-white flex flex-col min-h-screen shadow-xl
+          w-64 bg-white flex flex-col shadow-xl
           fixed lg:static inset-y-0 left-0 z-40
           transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
