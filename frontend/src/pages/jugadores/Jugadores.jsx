@@ -137,11 +137,7 @@ export default function Jugadores() {
             <h1 className="text-xl font-bold text-club-blue">Deportistas</h1>
             <p className="text-sm text-gray-500 mt-0.5">Lista general de todos los deportistas del club</p>
           </div>
-          <div className="flex gap-2">
-            <button onClick={abrirNuevo} className="bg-club-blue hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
-              + Agregar
-            </button>
-          </div>
+          <div className="flex gap-2"></div>
         </div>
 
         <div className="p-6">
