@@ -91,6 +91,7 @@ export default function Planeaciones() {
 
   const [modal, setModal] = useState(null);
   const [editando, setEditando] = useState(null);
+  const [archivoFile, setArchivoFile] = useState(null);
   const esAdminOCoordinador = rol === "admin" || rol === "coordinador";
 
   const eliminar = async (id) => {
@@ -123,6 +124,7 @@ export default function Planeaciones() {
   const guardarModal = async () => {
     try {
       const data = { ...modal };
+      if (archivoFile) data.archivo = archivoFile;
       if (editando) {
         await planeacionService.update(editando.id, data);
       } else {
@@ -130,6 +132,7 @@ export default function Planeaciones() {
       }
       setModal(null);
       setEditando(null);
+      setArchivoFile(null);
       cargarDatos();
     } catch (error) {
       console.error("Error guardando:", error);
@@ -271,6 +274,7 @@ export default function Planeaciones() {
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Fin</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Lapso inicio</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Lapso fin</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Archivo</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Estado</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
                 </tr>
@@ -289,6 +293,9 @@ export default function Planeaciones() {
                     <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.fechaFin)}</td>
                     <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoInicio)}</td>
                     <td className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoFin)}</td>
+                    <td className="px-4 py-3 text-sm">
+                      {p.archivo ? <a href={p.archivo} target="_blank" className="text-club-blue underline hover:text-blue-800">Ver archivo</a> : <span className="text-gray-400">-</span>}
+                    </td>
                     <td className="px-4 py-3">
                       <Badge color={getEstado(p)}>{getEstado(p)}</Badge>
                     </td>
@@ -335,6 +342,13 @@ export default function Planeaciones() {
                   <option value="">Seleccionar grupo</option>
                   {categorias.map((c) => <option key={c.id} value={c.id}>{c.nombre} {c.ano}</option>)}
                 </select>
+              </div>
+              <div>
+                <label className="text-gray-600 text-sm font-medium block mb-1">Archivo (PDF, Excel)</label>
+                <input type="file" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm" onChange={(e) => setArchivoFile(e.target.files[0] || null)} />
+                {editando?.archivo && (
+                  <p className="text-xs text-gray-400 mt-1">Archivo actual: <a href={editando.archivo} target="_blank" className="text-club-blue underline">Ver</a></p>
+                )}
               </div>
               {esAdminOCoordinador && (
                 <div className="border-t border-gray-100 pt-4">
