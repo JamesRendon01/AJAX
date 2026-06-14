@@ -3,6 +3,7 @@ import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
 import asistenciaService from "../../services/asistenciaAdminService";
 import authService from "../../services/authService";
 import usePageTitle from "../../hooks/usePageTitle";
+import api from "../../services/api";
 
 export default function Asistencias() {
   usePageTitle("Asistencias Entrenador");
@@ -11,10 +12,20 @@ export default function Asistencias() {
   const [dragging, setDragging] = useState(false);
   const [asistencias, setAsistencias] = useState([]);
   const [subiendo, setSubiendo] = useState(false);
+  const [categoriaId, setCategoriaId] = useState(null);
+  const [cargandoCategoria, setCargandoCategoria] = useState(true);
   const user = authService.getCurrentUser();
 
   useEffect(() => {
-    asistenciaService.getAll().then(setAsistencias).catch(() => {});
+    Promise.all([
+      asistenciaService.getAll(),
+      api.get("/categorias/").then(r => r.data),
+    ]).then(([asistenciasData, categorias]) => {
+      setAsistencias(asistenciasData);
+      const cat = categorias.find(c => c.idEntrenador === user.id);
+      if (cat) setCategoriaId(cat.id);
+      setCargandoCategoria(false);
+    }).catch(() => setCargandoCategoria(false));
   }, []);
 
   const handleDrop = (e) => {
@@ -24,10 +35,18 @@ export default function Asistencias() {
   };
 
   const handleUpload = async () => {
-    if (!nombre || !archivo) return;
+    if (!nombre || !archivo || !categoriaId) return;
     setSubiendo(true);
     try {
-      await asistenciaService.create({ nombre, archivo });
+      const hoy = new Date().toISOString().split("T")[0];
+      await asistenciaService.create({
+        nombre,
+        archivo,
+        fechaCreacion: hoy,
+        fechaCargado: hoy,
+        idEntrenador: user.id,
+        idCategoria: categoriaId,
+      });
       setNombre("");
       setArchivo(null);
       const data = await asistenciaService.getAll();
@@ -91,7 +110,10 @@ export default function Asistencias() {
               )}
             </div>
 
-            <button onClick={handleUpload} disabled={subiendo || !nombre || !archivo}
+            {!categoriaId && !cargandoCategoria && (
+              <p className="text-red-500 text-sm mt-4">No tienes una categoría asignada. Contacta al administrador.</p>
+            )}
+            <button onClick={handleUpload} disabled={subiendo || !nombre || !archivo || !categoriaId}
               className="mt-4 bg-club-blue hover:bg-blue-800 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">
               {subiendo ? "Subiendo..." : "Subir asistencia"}
             </button>
