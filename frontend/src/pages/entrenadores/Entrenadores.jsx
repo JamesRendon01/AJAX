@@ -48,8 +48,8 @@ export default function Entrenadores() {
     setEditando(null);
     setFiles({});
     setModal({
-      nombre: "", tipoDocumento: "", documento: "", celular: "",
-      cargo: "", email: "", coced: "", contactoEmergencia: "",
+      nombre: "", tipoDocumento: "", documento: "", password: "",
+      celular: "", cargo: "", email: "", coced: "", contactoEmergencia: "",
       fechaInicio: "", fechaFin: "",
     });
   };
@@ -59,8 +59,8 @@ export default function Entrenadores() {
     setFiles({});
     setModal({
       nombre: e.nombre || "", tipoDocumento: e.tipoDocumento || "",
-      documento: e.documento || "", celular: e.celular || "",
-      cargo: e.cargo || "", email: e.email || "",
+      documento: e.documento || "", password: "",
+      celular: e.celular || "", cargo: e.cargo || "", email: e.email || "",
       coced: e.coced || "", contactoEmergencia: e.contactoEmergencia || "",
       fechaInicio: e.fechaInicio || "", fechaFin: e.fechaFin || "",
     });
@@ -206,6 +206,10 @@ export default function Entrenadores() {
                 <div>
                   <label className="text-gray-600 text-sm font-medium block mb-1">Documento</label>
                   <input type="text" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm" value={modal.documento} onChange={(e) => setModal({...modal, documento: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-gray-600 text-sm font-medium block mb-1">Contraseña</label>
+                  <input type="password" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm" value={modal.password} onChange={(e) => setModal({...modal, password: e.target.value})} placeholder="1234 (por defecto)" />
                 </div>
                 <div>
                   <label className="text-gray-600 text-sm font-medium block mb-1">Celular</label>
