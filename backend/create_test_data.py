@@ -141,7 +141,6 @@ try:
     # Crear asistencias
     asistencia1 = Asistencia(
         nombre="Asistencia Sub-15 Enero",
-        fechaCreacion=date(2026, 1, 31),
         fechaCargado=date(2026, 2, 1),
         archivo="asistencia_sub15_enero.pdf",
         idEntrenador=entrenador1.id,
@@ -150,7 +149,6 @@ try:
     
     asistencia2 = Asistencia(
         nombre="Asistencia Sub-17 Febrero",
-        fechaCreacion=date(2026, 2, 28),
         fechaCargado=date(2026, 3, 1),
         archivo="asistencia_sub17_febrero.pdf",
         idEntrenador=entrenador2.id,
