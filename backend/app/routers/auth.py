@@ -78,7 +78,10 @@ def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
     user.reset_token_expiry = datetime.utcnow() + timedelta(hours=RESET_TOKEN_EXPIRE_HOURS)
     db.commit()
 
-    send_reset_email(to_email=user.email, token=token, nombre=user.nombre)
+    try:
+        send_reset_email(to_email=user.email, token=token, nombre=user.nombre)
+    except Exception:
+        pass
 
     return {"message": "Si el correo existe, recibiras un enlace de recuperacion"}
 
