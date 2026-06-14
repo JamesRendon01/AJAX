@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.entrenador import Entrenador
 from app.services.email import send_reset_email
-from app.services.pwd import verify_password
+from app.services.pwd import verify_password, hash_password, is_hash_recognized
 from datetime import datetime, timedelta
 import os
 import jwt
@@ -49,6 +49,10 @@ def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     
     if not user or not verify_password(password, user.password):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+
+    if not is_hash_recognized(user.password):
+        user.password = password
+        db.commit()
     
     rol = user.rol if user.rol else "entrenador"
     token = create_access_token({"sub": str(user.id), "rol": rol})
