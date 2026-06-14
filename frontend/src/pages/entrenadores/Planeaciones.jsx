@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import SidebarEntrenador from "../../components/layout/SidebarEntrenador";
 import planeacionService from "../../services/planeacionService";
 import usePageTitle from "../../hooks/usePageTitle";
+import { safeUrl } from "../../utils/safeUrl";
 
 export default function Planeaciones() {
   usePageTitle("Planeaciones Entrenador");
@@ -155,7 +156,7 @@ export default function Planeaciones() {
                       )}
 
                       {p.archivo ? (
-                        <a href={p.archivo} target="_blank" rel="noopener noreferrer" className="inline-block bg-green-50 text-green-700 border border-green-200 text-xs px-3 py-1.5 rounded-full font-medium hover:bg-green-100">
+                        <a href={safeUrl(p.archivo)} target="_blank" rel="noopener noreferrer" className="inline-block bg-green-50 text-green-700 border border-green-200 text-xs px-3 py-1.5 rounded-full font-medium hover:bg-green-100">
                           Ver archivo
                         </a>
                       ) : (

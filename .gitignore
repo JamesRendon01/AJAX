@@ -5,6 +5,8 @@ __pycache__/
 
 # Variables de entorno
 .env
+.env.staging
+.env.production
 
 # Archivos subidos localmente
 uploads/

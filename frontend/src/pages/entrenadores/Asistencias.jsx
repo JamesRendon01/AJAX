@@ -4,6 +4,7 @@ import asistenciaService from "../../services/asistenciaAdminService";
 import authService from "../../services/authService";
 import usePageTitle from "../../hooks/usePageTitle";
 import api from "../../services/api";
+import { safeUrl } from "../../utils/safeUrl";
 
 export default function Asistencias() {
   usePageTitle("Asistencias Entrenador");
@@ -134,7 +135,7 @@ export default function Asistencias() {
                     <p className="text-gray-500 text-xs mt-0.5">Cargado: {formatDate(a.fechaCarga)}</p>
                   </div>
                   {a.archivo ? (
-                    <a href={a.archivo} target="_blank" rel="noopener noreferrer" className="bg-green-50 text-green-700 border border-green-200 text-xs px-3 py-1 rounded-full font-medium hover:bg-green-100">
+                    <a href={safeUrl(a.archivo)} target="_blank" rel="noopener noreferrer" className="bg-green-50 text-green-700 border border-green-200 text-xs px-3 py-1 rounded-full font-medium hover:bg-green-100">
                       Ver archivo
                     </a>
                   ) : (

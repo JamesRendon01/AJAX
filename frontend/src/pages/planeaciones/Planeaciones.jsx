@@ -5,6 +5,7 @@ import authService from "../../services/authService";
 import planeacionService from "../../services/planeacionService";
 import api from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
+import { safeUrl } from "../../utils/safeUrl";
 
 function Badge({ children, color }) {
   const colors = {
@@ -295,7 +296,7 @@ export default function Planeaciones() {
                     <td data-label="Lapso inicio" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoInicio)}</td>
                     <td data-label="Lapso fin" className="px-4 py-3 text-sm text-gray-600">{formatDate(p.lapsoFin)}</td>
                     <td data-label="Archivo" className="px-4 py-3 text-sm">
-                      {p.archivo ? <a href={p.archivo} target="_blank" className="text-club-blue underline hover:text-blue-800">Ver archivo</a> : <span className="text-gray-400">-</span>}
+                      {p.archivo ? <a href={safeUrl(p.archivo)} target="_blank" rel="noopener noreferrer" className="text-club-blue underline hover:text-blue-800">Ver archivo</a> : <span className="text-gray-400">-</span>}
                     </td>
                     <td data-label="Estado" className="px-4 py-3">
                       <Badge color={getEstado(p)}>{getEstado(p)}</Badge>
@@ -349,7 +350,7 @@ export default function Planeaciones() {
                 <label className="text-gray-600 text-sm font-medium block mb-1">Archivo (PDF, Excel)</label>
                 <input type="file" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm" onChange={(e) => setArchivoFile(e.target.files[0] || null)} />
                 {editando?.archivo && (
-                  <p className="text-xs text-gray-400 mt-1">Archivo actual: <a href={editando.archivo} target="_blank" className="text-club-blue underline">Ver</a></p>
+                   <p className="text-xs text-gray-400 mt-1">Archivo actual: <a href={safeUrl(editando.archivo)} target="_blank" rel="noopener noreferrer" className="text-club-blue underline">Ver</a></p>
                 )}
               </div>
               {esAdminOCoordinador && (

@@ -4,6 +4,7 @@ import SidebarCoordinador from "../../components/layout/SidebarCoordinador";
 import entrenadorService from "../../services/entrenadorService";
 import authService from "../../services/authService";
 import usePageTitle from "../../hooks/usePageTitle";
+import { safeUrl } from "../../utils/safeUrl";
 
 export default function Entrenadores() {
   usePageTitle("Entrenadores");
@@ -163,7 +164,7 @@ export default function Entrenadores() {
                       <td data-label="F.Inicio" className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaInicio)}</td>
                       <td data-label="Certificado" className="px-4 py-4">
                         {e.certificado ? (
-                          <a href={e.certificado} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>
+                          <a href={safeUrl(e.certificado)} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>
                         ) : <span className="text-gray-400 text-xs">-</span>}
                       </td>
                       <td data-label="Acciones" className="px-4 py-4 flex gap-1">
@@ -256,7 +257,7 @@ export default function Entrenadores() {
                       <p className="text-xs font-medium text-gray-600 mb-2">{label}</p>
                       <input type="file" className="w-full text-xs" onChange={(e) => setFiles({...files, [key]: e.target.files[0] || null})} />
                       {editando && editando[key] && (
-                        <p className="text-xs text-gray-400 mt-1">Actual: <a href={editando[key]} target="_blank" className="text-club-blue underline">Ver</a></p>
+                        <p className="text-xs text-gray-400 mt-1">Actual: <a href={safeUrl(editando[key])} target="_blank" rel="noopener noreferrer" className="text-club-blue underline">Ver</a></p>
                       )}
                     </div>
                   ))}

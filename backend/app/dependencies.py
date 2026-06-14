@@ -6,8 +6,11 @@ from app.models.entrenador import Entrenador
 import os
 import jwt
 
-SECRET_KEY = os.getenv("SECRET_KEY", "ajax_secret_key_2026_change_in_production")
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY no está configurada en el entorno")
 
 security = HTTPBearer()
 

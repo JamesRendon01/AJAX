@@ -12,8 +12,11 @@ from pydantic import BaseModel
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
-SECRET_KEY = os.getenv("SECRET_KEY", "ajax_secret_key_2026_change_in_production")
+
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY no está configurada en el entorno")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 RESET_TOKEN_EXPIRE_HOURS = int(os.getenv("RESET_TOKEN_EXPIRE_HOURS", 1))
 

@@ -5,6 +5,7 @@ import authService from "../../services/authService";
 import jugadorService from "../../services/jugadorService";
 import api from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
+import { safeUrl } from "../../utils/safeUrl";
 
 export default function Jugadores() {
   usePageTitle("Jugadores");
@@ -239,7 +240,7 @@ export default function Jugadores() {
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>Inicio: <strong className="text-gray-700">{j[`${key}_fechaInicio`]}</strong></span>
                         <span>Fin: <strong className="text-gray-700">{j[`${key}_fechaFin`]}</strong></span>
-                        <a href={j[key]} target="_blank" rel="noopener noreferrer" className="text-club-blue font-medium hover:underline">Ver archivo</a>
+                        <a href={safeUrl(j[key])} target="_blank" rel="noopener noreferrer" className="text-club-blue font-medium hover:underline">Ver archivo</a>
                       </div>
                     </div>
                   );
@@ -247,7 +248,7 @@ export default function Jugadores() {
                 <div className={`border rounded-lg p-4 ${j.devoluciones ? "border-gray-100" : "border-gray-100 bg-gray-50"}`}>
                   <p className="text-sm font-medium text-gray-700 mb-2">Documento Devoluciones</p>
                   {j.devoluciones ? (
-                    <a href={j.devoluciones} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs font-medium hover:underline">Ver archivo</a>
+                    <a href={safeUrl(j.devoluciones)} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs font-medium hover:underline">Ver archivo</a>
                   ) : (
                     <p className="text-xs text-gray-400">Sin archivo</p>
                   )}
@@ -345,7 +346,7 @@ export default function Jugadores() {
                       </div>
                       <input type="file" className="w-full text-xs" onChange={(e) => setFiles({...files, [`devolucion${n}`]: e.target.files[0] || null})} />
                       {editando && editando[`devolucion${n}`] && (
-                        <p className="text-xs text-gray-400 mt-1">Actual: <a href={editando[`devolucion${n}`]} target="_blank" className="text-club-blue underline">Ver</a></p>
+                        <p className="text-xs text-gray-400 mt-1">Actual: <a href={safeUrl(editando[`devolucion${n}`])} target="_blank" rel="noopener noreferrer" className="text-club-blue underline">Ver</a></p>
                       )}
                     </div>
                   ))}
@@ -353,7 +354,7 @@ export default function Jugadores() {
                     <p className="text-xs font-medium text-gray-600 mb-2">Documento Devoluciones</p>
                     <input type="file" className="w-full text-xs" onChange={(e) => setFiles({...files, devoluciones: e.target.files[0] || null})} />
                     {editando && editando.devoluciones && (
-                      <p className="text-xs text-gray-400 mt-1">Actual: <a href={editando.devoluciones} target="_blank" className="text-club-blue underline">Ver</a></p>
+                      <p className="text-xs text-gray-400 mt-1">Actual: <a href={safeUrl(editando.devoluciones)} target="_blank" rel="noopener noreferrer" className="text-club-blue underline">Ver</a></p>
                     )}
                   </div>
                 </div>

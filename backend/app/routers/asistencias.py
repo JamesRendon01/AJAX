@@ -2,18 +2,23 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.asistencia import Asistencia
+from app.models.entrenador import Entrenador
 from app.services.storage import subir_archivo, limpiar
+from app.dependencies import get_current_user, require_rol
 from typing import Optional
 import uuid
 
 router = APIRouter(prefix="/asistencias", tags=["Asistencias"])
 
+AUTH = Depends(get_current_user)
+ADMIN_COORD = Depends(require_rol("admin", "coordinador"))
+
 @router.get("/")
-def listar(db: Session = Depends(get_db)):
+def listar(db: Session = Depends(get_db), user: Entrenador = AUTH):
     return db.query(Asistencia).all()
 
 @router.get("/{id}")
-def obtener(id: int, db: Session = Depends(get_db)):
+def obtener(id: int, db: Session = Depends(get_db), user: Entrenador = AUTH):
     obj = db.query(Asistencia).filter(Asistencia.id == id).first()
     if not obj:
         raise HTTPException(status_code=404, detail="No encontrado")
@@ -26,7 +31,8 @@ async def crear(
     idEntrenador: Optional[int] = Form(None),
     idCategoria: Optional[int] = Form(None),
     archivo: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    user: Entrenador = ADMIN_COORD
 ):
     datos = {
         "nombre": nombre,
@@ -56,7 +62,8 @@ async def actualizar(
     idEntrenador: Optional[int] = Form(None),
     idCategoria: Optional[int] = Form(None),
     archivo: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    user: Entrenador = ADMIN_COORD
 ):
     obj = db.query(Asistencia).filter(Asistencia.id == id).first()
     if not obj:
@@ -79,7 +86,7 @@ async def actualizar(
     return obj
 
 @router.delete("/{id}", status_code=204)
-def eliminar(id: int, db: Session = Depends(get_db)):
+def eliminar(id: int, db: Session = Depends(get_db), user: Entrenador = ADMIN_COORD):
     obj = db.query(Asistencia).filter(Asistencia.id == id).first()
     if not obj:
         raise HTTPException(status_code=404, detail="No encontrado")
