@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.entrenador import Entrenador
 from app.services.email import send_reset_email
+from app.services.pwd import verify_password
 from datetime import datetime, timedelta
 import os
 import jwt
@@ -43,7 +44,7 @@ def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     
     user = db.query(Entrenador).filter(Entrenador.documento == username).first()
     
-    if not user or user.password != password:
+    if not user or not verify_password(password, user.password):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     
     rol = user.rol if user.rol else "entrenador"

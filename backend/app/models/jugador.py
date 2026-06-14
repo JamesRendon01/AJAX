@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.models.base import Base
+from app.models.types import EncryptedString
 
 class Jugador(Base):
     __tablename__ = "jugadores"
@@ -13,7 +14,7 @@ class Jugador(Base):
     fechaNacimiento    = Column(Date)
     edad               = Column(Integer)
     dorsal             = Column(Integer)
-    contactoEmergencia = Column(String)
+    contactoEmergencia = Column(EncryptedString)
     estado             = Column(String)
     fechaIngreso       = Column(Date)
     fechaSalida        = Column(Date)
