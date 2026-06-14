@@ -25,7 +25,7 @@ class LoginRequest(BaseModel):
     password: str
 
 class ForgotPasswordRequest(BaseModel):
-    email: str
+    documento: str
 
 class ResetPasswordRequest(BaseModel):
     token: str
@@ -69,9 +69,9 @@ def login(credentials: LoginRequest, db: Session = Depends(get_db)):
 
 @router.post("/forgot-password")
 def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
-    user = db.query(Entrenador).filter(Entrenador.email == req.email).first()
-    if not user:
-        return {"message": "Si el correo existe, recibiras un enlace de recuperacion"}
+    user = db.query(Entrenador).filter(Entrenador.documento == req.documento).first()
+    if not user or not user.email:
+        return {"message": "Si el documento existe, recibiras un enlace de recuperacion"}
 
     token = str(uuid.uuid4())
     user.reset_token = token
@@ -83,7 +83,7 @@ def forgot_password(req: ForgotPasswordRequest, db: Session = Depends(get_db)):
     except Exception:
         pass
 
-    return {"message": "Si el correo existe, recibiras un enlace de recuperacion"}
+    return {"message": "Si el documento existe, recibiras un enlace de recuperacion"}
 
 @router.post("/reset-password")
 def reset_password(req: ResetPasswordRequest, db: Session = Depends(get_db)):
