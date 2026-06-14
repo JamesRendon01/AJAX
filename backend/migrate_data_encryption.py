@@ -4,9 +4,8 @@ Ejecutar UNA SOLA VEZ después de aplicar los cambios en los modelos.
 Uso: python migrate_data_encryption.py
 """
 from app.database import SessionLocal
-from app.models.entrenador import Entrenador
-from app.models.jugador import Jugador
 from app.services.pwd import hash_password
+from app.services.crypto import encrypt
 from sqlalchemy import text
 
 db = SessionLocal()
@@ -24,20 +23,33 @@ try:
     db.commit()
     print(f"Passwords migradas: {count}")
 
-    # --- Migrar campos encriptables ---
-    for e in db.query(Entrenador).all():
-        e.celular = e.celular
-        e.email = e.email
-        e.contactoEmergencia = e.contactoEmergencia
-        db.add(e)
+    # --- Migrar campos encriptables usando SQL directo ---
+    rows = db.execute(text("SELECT id, celular, email, \"contactoEmergencia\" FROM entrenadores")).fetchall()
+    count = 0
+    for row in rows:
+        updates = {}
+        for col in ("celular", "email", "contactoEmergencia"):
+            val = getattr(row, col)
+            if val and not str(val).startswith("gAAAAA"):
+                updates[col] = encrypt(str(val))
+        if updates:
+            set_clause = ", ".join(f"{c} = :{c}" for c in updates)
+            updates["id"] = row.id
+            db.execute(text(f"UPDATE entrenadores SET {set_clause} WHERE id = :id"), updates)
+            count += 1
     db.commit()
-    print("Campos de Entrenador migrados")
+    print(f"Entrenadores migrados: {count}")
 
-    for j in db.query(Jugador).all():
-        j.contactoEmergencia = j.contactoEmergencia
-        db.add(j)
+    rows = db.execute(text("SELECT id, \"contactoEmergencia\" FROM jugadores")).fetchall()
+    count = 0
+    for row in rows:
+        if row.contactoEmergencia and not str(row.contactoEmergencia).startswith("gAAAAA"):
+            db.execute(text("UPDATE jugadores SET \"contactoEmergencia\" = :v WHERE id = :id"), {
+                "v": encrypt(str(row.contactoEmergencia)), "id": row.id
+            })
+            count += 1
     db.commit()
-    print("Campos de Jugador migrados")
+    print(f"Jugadores migrados: {count}")
 
     print("Migración completada exitosamente")
 
