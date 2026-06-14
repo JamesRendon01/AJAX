@@ -217,7 +217,6 @@ export default function AsistenciasAdmin() {
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Grupo</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Entrenador</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Fecha carga</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Fecha creación</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
@@ -238,9 +237,6 @@ export default function AsistenciasAdmin() {
                     </td>
                     <td data-label="Fecha carga" className="px-4 py-3 text-sm text-gray-600">
                       {formatDate(a.fechaCargado)}
-                    </td>
-                    <td data-label="Fecha creación" className="px-4 py-3 text-sm text-gray-600">
-                      {formatDate(a.fechaCreacion)}
                     </td>
                     <td data-label="Acciones" className="px-4 py-3 flex gap-1">
                       <button className="px-3 py-1.5 border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-club-blue text-xs rounded-md transition-colors">Ver</button>

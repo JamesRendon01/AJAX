@@ -42,7 +42,6 @@ export default function Asistencias() {
       await asistenciaService.create({
         nombre,
         archivo,
-        fechaCreacion: hoy,
         fechaCargado: hoy,
         idEntrenador: user.id,
         idCategoria: categoriaId,

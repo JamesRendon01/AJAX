@@ -22,7 +22,6 @@ def obtener(id: int, db: Session = Depends(get_db)):
 @router.post("/", status_code=201)
 async def crear(
     nombre: str = Form(...),
-    fechaCreacion: Optional[str] = Form(None),
     fechaCargado: Optional[str] = Form(None),
     idEntrenador: Optional[int] = Form(None),
     idCategoria: Optional[int] = Form(None),
@@ -31,7 +30,6 @@ async def crear(
 ):
     datos = {
         "nombre": nombre,
-        "fechaCreacion": limpiar(fechaCreacion),
         "fechaCargado": limpiar(fechaCargado),
         "idEntrenador": idEntrenador,
         "idCategoria": idCategoria
@@ -54,7 +52,6 @@ async def crear(
 async def actualizar(
     id: int,
     nombre: Optional[str] = Form(None),
-    fechaCreacion: Optional[str] = Form(None),
     fechaCargado: Optional[str] = Form(None),
     idEntrenador: Optional[int] = Form(None),
     idCategoria: Optional[int] = Form(None),
@@ -66,7 +63,6 @@ async def actualizar(
         raise HTTPException(status_code=404, detail="No encontrado")
 
     if nombre: obj.nombre = nombre
-    if fechaCreacion: obj.fechaCreacion = limpiar(fechaCreacion)
     if fechaCargado: obj.fechaCargado = limpiar(fechaCargado)
     if idEntrenador: obj.idEntrenador = idEntrenador
     if idCategoria: obj.idCategoria = idCategoria

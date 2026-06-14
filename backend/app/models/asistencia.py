@@ -7,7 +7,6 @@ class Asistencia(Base):
 
     id            = Column(Integer, primary_key=True, autoincrement=True)
     nombre        = Column(String)
-    fechaCreacion = Column(Date)
     fechaCargado  = Column(Date)
     archivo       = Column(String)
     archivo_original = Column(String, nullable=True)
