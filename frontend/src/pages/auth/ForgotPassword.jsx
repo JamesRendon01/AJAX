@@ -1,24 +1,24 @@
 import { useState } from "react";
-import { Mail, ArrowLeft, CheckCircle, AlertCircle } from "lucide-react";
+import { User, ArrowLeft, CheckCircle, AlertCircle } from "lucide-react";
 import api from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
 
 export default function ForgotPassword() {
   usePageTitle("Recuperar Contraseña");
-  const [email, setEmail] = useState("");
+  const [documento, setDocumento] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    if (!email) {
-      setError("Ingresa tu correo electrónico");
+    if (!documento) {
+      setError("Ingresa tu número de documento");
       return;
     }
     try {
       setLoading(true);
       setError("");
-      await api.post("/auth/forgot-password", { email });
+      await api.post("/auth/forgot-password", { documento });
       setSent(true);
     } catch {
       setError("Error al enviar la solicitud. Intenta de nuevo.");
@@ -47,21 +47,21 @@ export default function ForgotPassword() {
           <>
             <div className="flex justify-center mb-6">
               <div className="bg-club-blue rounded-xl p-4 shadow-lg">
-                <Mail className="text-white w-8 h-8" />
+                <User className="text-white w-8 h-8" />
               </div>
             </div>
             <h1 className="text-gray-800 text-2xl font-bold text-center">Recuperar contraseña</h1>
             <p className="text-gray-500 text-center mt-1 mb-8">
-              Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña
+              Ingresa tu número de documento y te enviaremos un enlace para restablecer tu contraseña
             </p>
 
             <div className="mb-6">
-              <label className="text-gray-600 text-sm font-medium mb-2 block">Correo electrónico</label>
+              <label className="text-gray-600 text-sm font-medium mb-2 block">Número de documento</label>
               <input
-                type="email"
-                placeholder="correo@ejemplo.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Tu documento de identidad"
+                value={documento}
+                onChange={(e) => setDocumento(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-club-blue focus:border-transparent transition-all"
               />
             </div>
@@ -88,7 +88,7 @@ export default function ForgotPassword() {
             </div>
             <h1 className="text-gray-800 text-2xl font-bold text-center">Revisa tu correo</h1>
             <p className="text-gray-500 text-center mt-2 mb-4">
-              Te hemos enviado un enlace de recuperación a <strong className="text-gray-800">{email}</strong>
+              Si el documento existe, recibirás un enlace de recuperación en tu correo electrónico.
             </p>
             <p className="text-gray-400 text-center text-sm mb-6">
               Si no recibes el correo en unos minutos, revisa tu carpeta de spam.

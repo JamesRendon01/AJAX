@@ -23,6 +23,7 @@ app.add_middleware(
         "http://192.168.20.28:5174",
         "https://ajax-liart.vercel.app",
         "https://ajax-james-rendons-projects.vercel.app",
+        "https://ajax-peay.onrender.com",
     ],
     allow_origin_regex=r"https://.*\.onrender\.com",
     allow_credentials=True,
