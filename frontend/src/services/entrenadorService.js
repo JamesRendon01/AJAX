@@ -15,7 +15,7 @@ const entrenadorService = {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
-        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional", "certificadoPrimerCorrespondiente", "evaluacion"].includes(key);
+        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional"].includes(key);
         if (isFile) {
           if (data[key] instanceof File) formData.append(key, data[key]);
         } else {
@@ -33,7 +33,7 @@ const entrenadorService = {
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
-        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional", "certificadoPrimerCorrespondiente", "evaluacion"].includes(key);
+        const isFile = ["certificado", "delitosSexuales", "tarjetaProfesional"].includes(key);
         if (isFile) {
           if (data[key] instanceof File) formData.append(key, data[key]);
         } else {

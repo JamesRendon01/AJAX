@@ -101,8 +101,6 @@ export default function Entrenadores() {
     { key: "certificado", label: "Certificado" },
     { key: "delitosSexuales", label: "Delitos sexuales" },
     { key: "tarjetaProfesional", label: "Tarjeta profesional" },
-    { key: "certificadoPrimerCorrespondiente", label: "Primeros auxilios" },
-    { key: "evaluacion", label: "Evaluación" },
   ];
 
   return (
@@ -139,16 +137,15 @@ export default function Entrenadores() {
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Cargo</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Celular</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">F.Inicio</th>
-                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Evaluación</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Certificado</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan={11} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
+                  <tr><td colSpan={10} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
                 ) : filtrados.length === 0 ? (
-                  <tr><td colSpan={11} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
+                  <tr><td colSpan={10} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
                 ) : (
                   filtrados.map((e) => (
                     <tr key={e.id} className="border-b border-gray-100 last:border-0">
@@ -164,11 +161,6 @@ export default function Entrenadores() {
                       <td data-label="Cargo" className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
                       <td data-label="Celular" className="text-gray-600 text-sm px-4 py-4">{e.celular}</td>
                       <td data-label="F.Inicio" className="text-gray-600 text-sm px-4 py-4">{formatDate(e.fechaInicio)}</td>
-                      <td data-label="Evaluación" className="px-4 py-4">
-                        {e.evaluacion ? (
-                          <a href={e.evaluacion} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>
-                        ) : <span className="text-gray-400 text-xs">-</span>}
-                      </td>
                       <td data-label="Certificado" className="px-4 py-4">
                         {e.certificado ? (
                           <a href={e.certificado} target="_blank" rel="noopener noreferrer" className="text-club-blue text-xs hover:underline font-medium">Ver</a>

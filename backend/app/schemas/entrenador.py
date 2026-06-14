@@ -9,7 +9,6 @@ class EntrenadorCreate(BaseModel):
     certificado: Optional[str] = None
     delitosSexuales: Optional[str] = None
     tarjetaProfesional: Optional[str] = None
-    certificadoPrimerCorrespondiente: Optional[str] = None
     celular: Optional[str] = None
     cargo: Optional[str] = None
 
@@ -20,7 +19,6 @@ class EntrenadorUpdate(BaseModel):
     certificado: Optional[str] = None
     delitosSexuales: Optional[str] = None
     tarjetaProfesional: Optional[str] = None
-    certificadoPrimerCorrespondiente: Optional[str] = None
     celular: Optional[str] = None
     cargo: Optional[str] = None
 
@@ -32,7 +30,6 @@ class EntrenadorResponse(BaseModel):
     certificado: Optional[str]
     delitosSexuales: Optional[str]
     tarjetaProfesional: Optional[str]
-    certificadoPrimerCorrespondiente: Optional[str]
     celular: Optional[str]
     cargo: Optional[str]
 

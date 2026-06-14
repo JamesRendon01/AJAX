@@ -40,8 +40,6 @@ async def crear(
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
-    certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
-    evaluacion: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     admin: Entrenador = ADMIN
 ):
@@ -81,20 +79,6 @@ async def crear(
         )
         datos["tarjetaProfesional_original"] = tarjetaProfesional.filename
 
-    if certificadoPrimerCorrespondiente:
-        nombre_archivo = f"{uuid.uuid4()}_{certificadoPrimerCorrespondiente.filename}"
-        datos["certificadoPrimerCorrespondiente"] = subir_archivo(
-            await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
-        )
-        datos["certificadoPrimerCorrespondiente_original"] = certificadoPrimerCorrespondiente.filename
-
-    if evaluacion:
-        nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
-        datos["evaluacion"] = subir_archivo(
-            await evaluacion.read(), nombre_archivo, "evaluaciones"
-        )
-        datos["evaluacion_original"] = evaluacion.filename
-
     obj = Entrenador(**datos)
     db.add(obj)
     db.commit()
@@ -119,8 +103,6 @@ async def actualizar(
     certificado: Optional[UploadFile] = File(None),
     delitosSexuales: Optional[UploadFile] = File(None),
     tarjetaProfesional: Optional[UploadFile] = File(None),
-    certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
-    evaluacion: Optional[UploadFile] = File(None),
     db: Session = Depends(get_db),
     admin: Entrenador = ADMIN
 ):
@@ -159,19 +141,6 @@ async def actualizar(
             await tarjetaProfesional.read(), nombre_archivo, "tarjetas"
         )
         obj.tarjetaProfesional_original = tarjetaProfesional.filename
-    if certificadoPrimerCorrespondiente:
-        nombre_archivo = f"{uuid.uuid4()}_{certificadoPrimerCorrespondiente.filename}"
-        obj.certificadoPrimerCorrespondiente = subir_archivo(
-            await certificadoPrimerCorrespondiente.read(), nombre_archivo, "primeros_auxilios"
-        )
-        obj.certificadoPrimerCorrespondiente_original = certificadoPrimerCorrespondiente.filename
-
-    if evaluacion:
-        nombre_archivo = f"{uuid.uuid4()}_{evaluacion.filename}"
-        obj.evaluacion = subir_archivo(
-            await evaluacion.read(), nombre_archivo, "evaluaciones"
-        )
-        obj.evaluacion_original = evaluacion.filename
 
     db.commit()
     db.refresh(obj)

@@ -28,7 +28,6 @@ try:
         certificado="cert_123.pdf",
         delitosSexuales="cert_delitos_123.pdf",
         tarjetaProfesional="TP-12345",
-        certificadoPrimerCorrespondiente="cert_primer_123.pdf",
         celular="3001234567",
         cargo="Entrenador Principal"
     )
@@ -42,7 +41,6 @@ try:
         certificado="cert_456.pdf",
         delitosSexuales="cert_delitos_456.pdf",
         tarjetaProfesional="TP-67890",
-        certificadoPrimerCorrespondiente="cert_primer_456.pdf",
         celular="3007654321",
         cargo="Entrenadora Asistente"
     )
