@@ -3,17 +3,21 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.entrenador import Entrenador
 from app.services.storage import subir_archivo
+from app.dependencies import get_current_user, require_rol
 from typing import Optional
 import uuid
 
 router = APIRouter(prefix="/entrenadores", tags=["Entrenadores"])
 
+ADMIN = Depends(require_rol("admin"))
+AUTH = Depends(get_current_user)
+
 @router.get("/")
-def listar(db: Session = Depends(get_db)):
+def listar(db: Session = Depends(get_db), user: Entrenador = AUTH):
     return db.query(Entrenador).all()
 
 @router.get("/{id}")
-def obtener(id: int, db: Session = Depends(get_db)):
+def obtener(id: int, db: Session = Depends(get_db), user: Entrenador = AUTH):
     obj = db.query(Entrenador).filter(Entrenador.id == id).first()
     if not obj:
         raise HTTPException(status_code=404, detail="No encontrado")
@@ -25,6 +29,7 @@ async def crear(
     tipoDocumento: Optional[str] = Form(None),
     documento: Optional[str] = Form(None),
     password: Optional[str] = Form("1234"),
+    rol: Optional[str] = Form("entrenador"),
     celular: Optional[str] = Form(None),
     cargo: Optional[str] = Form(None),
     email: Optional[str] = Form(None),
@@ -37,13 +42,15 @@ async def crear(
     tarjetaProfesional: Optional[UploadFile] = File(None),
     certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
     evaluacion: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    admin: Entrenador = ADMIN
 ):
     datos = {
         "nombre": nombre,
         "tipoDocumento": tipoDocumento,
         "documento": documento,
         "password": password,
+        "rol": rol,
         "celular": celular,
         "cargo": cargo,
         "email": email,
@@ -100,6 +107,8 @@ async def actualizar(
     nombre: Optional[str] = Form(None),
     tipoDocumento: Optional[str] = Form(None),
     documento: Optional[str] = Form(None),
+    password: Optional[str] = Form(None),
+    rol: Optional[str] = Form(None),
     celular: Optional[str] = Form(None),
     cargo: Optional[str] = Form(None),
     email: Optional[str] = Form(None),
@@ -112,7 +121,8 @@ async def actualizar(
     tarjetaProfesional: Optional[UploadFile] = File(None),
     certificadoPrimerCorrespondiente: Optional[UploadFile] = File(None),
     evaluacion: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    admin: Entrenador = ADMIN
 ):
     obj = db.query(Entrenador).filter(Entrenador.id == id).first()
     if not obj:
@@ -121,6 +131,8 @@ async def actualizar(
     if nombre: obj.nombre = nombre
     if tipoDocumento: obj.tipoDocumento = tipoDocumento
     if documento: obj.documento = documento
+    if password: obj.password = password
+    if rol: obj.rol = rol
     if celular: obj.celular = celular
     if cargo: obj.cargo = cargo
     if email: obj.email = email
@@ -166,7 +178,7 @@ async def actualizar(
     return obj
 
 @router.delete("/{id}", status_code=204)
-def eliminar(id: int, db: Session = Depends(get_db)):
+def eliminar(id: int, db: Session = Depends(get_db), admin: Entrenador = ADMIN):
     obj = db.query(Entrenador).filter(Entrenador.id == id).first()
     if not obj:
         raise HTTPException(status_code=404, detail="No encontrado")

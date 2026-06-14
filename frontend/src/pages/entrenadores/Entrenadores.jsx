@@ -50,7 +50,7 @@ export default function Entrenadores() {
     setModal({
       nombre: "", tipoDocumento: "", documento: "", password: "",
       celular: "", cargo: "", email: "", coced: "", contactoEmergencia: "",
-      fechaInicio: "", fechaFin: "",
+      fechaInicio: "", fechaFin: "", rol: "entrenador",
     });
   };
 
@@ -63,6 +63,7 @@ export default function Entrenadores() {
       celular: e.celular || "", cargo: e.cargo || "", email: e.email || "",
       coced: e.coced || "", contactoEmergencia: e.contactoEmergencia || "",
       fechaInicio: e.fechaInicio || "", fechaFin: e.fechaFin || "",
+      rol: e.rol || "entrenador",
     });
   };
 
@@ -132,6 +133,7 @@ export default function Entrenadores() {
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Nombre</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Documento</th>
+                  <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Rol</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Email</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">COCED</th>
                   <th className="text-gray-600 text-sm font-semibold text-left px-4 py-3">Cargo</th>
@@ -144,14 +146,19 @@ export default function Entrenadores() {
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan={10} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
+                  <tr><td colSpan={11} className="text-center text-gray-400 py-8 text-sm">Cargando...</td></tr>
                 ) : filtrados.length === 0 ? (
-                  <tr><td colSpan={10} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
+                  <tr><td colSpan={11} className="text-center text-gray-400 py-8 text-sm">Sin resultados</td></tr>
                 ) : (
                   filtrados.map((e) => (
                     <tr key={e.id} className="border-b border-gray-100 last:border-0">
                       <td data-label="Nombre" className="text-gray-800 text-sm px-4 py-4 font-medium">{e.nombre}</td>
                       <td data-label="Documento" className="text-gray-600 text-sm px-4 py-4">{e.documento}</td>
+                      <td data-label="Rol" className="text-gray-600 text-sm px-4 py-4">
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${e.rol === "admin" ? "bg-purple-100 text-purple-700" : e.rol === "coordinador" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"}`}>
+                          {e.rol}
+                        </span>
+                      </td>
                       <td data-label="Email" className="text-gray-600 text-sm px-4 py-4">{e.email || "-"}</td>
                       <td data-label="COCED" className="text-gray-600 text-sm px-4 py-4">{e.coced || "-"}</td>
                       <td data-label="Cargo" className="text-gray-600 text-sm px-4 py-4">{e.cargo}</td>
@@ -210,6 +217,14 @@ export default function Entrenadores() {
                 <div>
                   <label className="text-gray-600 text-sm font-medium block mb-1">Contraseña</label>
                   <input type="password" className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm" value={modal.password} onChange={(e) => setModal({...modal, password: e.target.value})} placeholder="1234 (por defecto)" />
+                </div>
+                <div>
+                  <label className="text-gray-600 text-sm font-medium block mb-1">Rol</label>
+                  <select className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm bg-white" value={modal.rol} onChange={(e) => setModal({...modal, rol: e.target.value})}>
+                    <option value="entrenador">Entrenador</option>
+                    <option value="coordinador">Coordinador</option>
+                    <option value="admin">Administrador</option>
+                  </select>
                 </div>
                 <div>
                   <label className="text-gray-600 text-sm font-medium block mb-1">Celular</label>

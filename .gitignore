@@ -19,3 +19,6 @@ frontend/.vite/
 
 # SQLite local db
 *.db
+
+# PostgreSQL staging data
+pg_staging/
